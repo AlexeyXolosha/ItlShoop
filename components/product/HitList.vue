@@ -24,6 +24,7 @@ import cardItem from '../UI/cardItem.vue';
         
         &__body{
             display: flex;
+            justify-content: space-between;
         }
     }
 </style>

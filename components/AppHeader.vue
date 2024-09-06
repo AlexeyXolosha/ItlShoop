@@ -86,9 +86,6 @@ import YellowButton from './UI/yellowButton.vue';
                 </ul>
             </div>
     </header>
-
-
-
 </template>
 
 
@@ -99,7 +96,7 @@ import YellowButton from './UI/yellowButton.vue';
         row-gap: 28px;
         max-width: 1840p;
         margin-inline: auto;
-        padding: 32px 40px 0;
+        padding: 32px 40px;
 
         &__inner{
             display: flex;

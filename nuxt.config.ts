@@ -3,5 +3,5 @@ export default defineNuxtConfig({
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   css: ['~/assets/styles/styles.css'],
-  modules: ['@vesp/nuxt-fontawesome'],
+  modules: ['@vesp/nuxt-fontawesome', 'nuxt-swiper'],
 })

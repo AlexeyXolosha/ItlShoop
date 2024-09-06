@@ -2,7 +2,8 @@
 import HitList from "~/components/product/HitList.vue"
 </script>
 
-<template>    
+<template>
+    <BannersMain></BannersMain>    
     <HitList></HitList>
 </template>
 

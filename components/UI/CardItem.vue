@@ -1,19 +1,16 @@
 <script setup>
-import yellowCard from "./YellowButton.vue";
+import yellowButton from './yellowButton.vue';
 </script>
 
 <template>
-
     <div class="card-product">
         <div class="card-product__sticker-list">
-            <div class="card-product__sticker">
-                <span>Товар недели</span>
-            </div>
-            <div class="card-product__sticker">
-                <span>Скидка 6%</span>
-            </div>
+            <span class="card-product__sticker sticker-bg--green">Товар недели</span>
+            <span class="card-product__sticker sticker-bg--red">Скидка 6%</span>
+            <span class="card-product__sticker sticker-bg--strawberry">Новинка</span>
+            <span class="card-product__sticker sticker-bg--blue">Хит продаж</span>
         </div>
-        <img src="../../public/iph.png" alt="" class="card-product__image">
+        <img src="../../public/iph.png" alt="" class="card-product__image" width="200" height="188">
         <div class="card-product__info">
             <div class="card-product__rating">
                 <img src="../../public/icons/star.svg" alt="" width="13" height="12">
@@ -25,7 +22,7 @@ import yellowCard from "./YellowButton.vue";
                 <p>Смартфон Apple iPhone 14 Pro Max</p>
             </div>
             <div class="card-product__shop-count">
-                <span>В наличии в 5 магазинах </span>
+                <p>В наличии в <span>5 магазинах</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
                 <span>529 990</span>
@@ -36,7 +33,7 @@ import yellowCard from "./YellowButton.vue";
         </div>
 
         <div class="card-product__add">
-            <yellowCard class="yellowCard__card">В корзину</yellowCard>
+            <yellowButton class="yellowCard__card">В корзину</yellowButton  >
             <div class="card-product__item">
                 <svg width="20" height="20" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M11.4375 2.9375L11.9531 3.5L12.5156 2.98438C14.0625 1.4375 16.2656 0.734375 18.375 1.10938C21.6094 1.625 24 4.4375 24 7.71875V7.95312C24 9.92188 23.1562 11.7969 21.75 13.1094L13.2656 21.0312C12.9375 21.3594 12.4688 21.5 12 21.5C11.4844 21.5 11.0156 21.3594 10.6875 21.0312L2.20312 13.1094C0.796875 11.7969 0 9.92188 0 7.95312V7.71875C0 4.4375 2.34375 1.625 5.57812 1.10938C7.6875 0.734375 9.89062 1.4375 11.4375 2.9375C11.4375 2.98438 11.3906 2.9375 11.4375 2.9375ZM11.9531 6.6875L9.84375 4.53125C8.8125 3.54688 7.35938 3.07812 5.95312 3.3125C3.79688 3.6875 2.25 5.51562 2.25 7.71875V7.95312C2.25 9.3125 2.76562 10.5781 3.75 11.4688L12 19.1562L20.2031 11.4688C21.1875 10.5781 21.75 9.3125 21.75 7.95312V7.71875C21.75 5.51562 20.1562 3.6875 18 3.3125C16.5938 3.07812 15.1406 3.54688 14.1094 4.53125L11.9531 6.6875Z" fill="#0E6CDD"/>
@@ -69,18 +66,17 @@ import yellowCard from "./YellowButton.vue";
         &__sticker-list{
             display: flex;
             flex-direction: column;
-            row-gap: 4px;          
+            align-items: start;
+            row-gap: 4px;
+
+            position: absolute;
+            z-index: 1;
         }
 
         &__sticker{
-            align-self: start;
-            font-size: 14px;
-
-            height: 24px;
-            padding-inline: 12px;
             color: var(--color-white);
-            background-color: var(--color-green);
             border-radius: var(--border-radius-4px);
+            padding-inline: 12px;
         }
 
         &__info{
@@ -103,6 +99,10 @@ import yellowCard from "./YellowButton.vue";
 
         &__shop-count{
             margin-bottom: 8px;
+
+            span{
+                color: var(--color-dark-blue);
+            }
         }
 
         &__shop-prevPrice{
@@ -137,4 +137,17 @@ import yellowCard from "./YellowButton.vue";
         }
     }
 
+    .sticker-bg--green{
+        background-color: var(--color-green);
+    }
+
+    .sticker-bg--red {
+        background-color: var(--color-red);
+    }
+    .sticker-bg--strawberry {
+        background-color: var(--color-strawberry);
+    }
+    .sticker-bg--blue {
+        background-color: var(--color-blue);
+    }
 </style>
