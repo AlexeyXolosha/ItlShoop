@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import YellowButton from './UI/yellowButton.vue';
+import YellowButton from './UI/YellowButton.vue';
 </script>
 
 <template>

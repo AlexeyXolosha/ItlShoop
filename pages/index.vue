@@ -1,12 +1,20 @@
-<script setup>
-import HitList from "~/components/product/HitList.vue"
-</script>
-
 <template>
-    <BannersMain></BannersMain>    
-    <HitList></HitList>
+    <BannersBannerMain></BannersBannerMain>   
+    <div class="container">
+        <ProductHitList>Хиты продаж</ProductHitList>
+        <CategoryList></CategoryList>
+        <BannersList></BannersList>
+        <UIBrands></UIBrands>
+        <ProductHitList>Распродажа</ProductHitList>
+        <ProductHitList>Рекомендуем</ProductHitList>
+    </div>
 </template>
+<style lang="scss">
 
-<style>
+
+    .main_h2{
+        font-size: 30px;
+        font-weight: 400;
+    }
 
 </style>

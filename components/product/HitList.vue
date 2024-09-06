@@ -1,18 +1,23 @@
 <script setup>
-import cardItem from '../UI/cardItem.vue';
 </script>
 
 <template>
-    <section class="container">
+    <section class="section container">
         <div class="section__body">
+            <div class="section__info">
+                <h2 class="section__title">
+                    <slot></slot>
+                </h2>
+                <UITabs></UITabs>
+            </div>
             <div class="hit-list">
                 <div class="hit-list__body">
-                    <cardItem />
-                    <cardItem />
-                    <cardItem />
-                    <cardItem />
-                    <cardItem />
-                    <cardItem />
+                    <UICardItem />
+                    <UICardItem />
+                    <UICardItem />
+                    <UICardItem />
+                    <UICardItem />
+                    <UICardItem />
                 </div>
             </div>
         </div>
@@ -21,10 +26,21 @@ import cardItem from '../UI/cardItem.vue';
 
 <style lang="scss">
     .hit-list{
-        
         &__body{
             display: flex;
             justify-content: space-between;
         }
+    }
+
+    .section__info{
+        display: flex;
+        flex-direction: column;
+        row-gap: 16px;
+        margin-bottom: 40px;
+    }
+
+    .section__title{
+        font-size: 30px;
+        font-weight: 400;
     }
 </style>
