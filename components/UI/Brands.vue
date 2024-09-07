@@ -43,6 +43,7 @@
         &__item{
             padding: 41px 40px;
             background-color: var(--color-blue-transparent-card);
+            width: calc(100%/8 - 20px)
         }
     }
 </style>
