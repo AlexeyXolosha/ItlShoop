@@ -4,17 +4,11 @@
         <ProductHitList>Хиты продаж</ProductHitList>
         <CategoryList></CategoryList>
         <BannersList></BannersList>
-        <UIBrands></UIBrands>
+        <Brands></Brands>
         <ProductHitList>Распродажа</ProductHitList>
         <ProductHitList>Рекомендуем</ProductHitList>
+        <Blogs></Blogs>
+        <Company></Company>
+        <Watchs></Watchs>
     </div>
 </template>
-<style lang="scss">
-
-
-    .main_h2{
-        font-size: 30px;
-        font-weight: 400;
-    }
-
-</style>

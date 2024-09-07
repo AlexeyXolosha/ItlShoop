@@ -14,22 +14,5 @@
 </template>
 
 <style lang="scss">
-.category-card{
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-
-    min-height: 240px;
-
-    &__body{
-        background-color: var(--color-blue-transparent-card);
-        border-radius: var(--border-radius-6px);
-        padding: 32px;
-    }
-
-    &__title{
-        text-align: center;
-    }
-}
 
 </style>

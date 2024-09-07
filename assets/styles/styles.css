@@ -192,6 +192,7 @@ body {
   --color-blue-transparent: rgba(14, 108, 221, 0.2);
   --color-blue-transparent-alt: rgba(14, 108, 221, 0.5);
   --color-blue-transparent-card: rgba(14, 108, 221, 0.05);
+  --color-blue-transparent-alt-2: rgba(14, 108, 221, 0.2);
   --color-dark-blue: #005CCC;
   --color-dark: #333;
   --color-bg: #F1F6FD;
@@ -210,5 +211,6 @@ body {
 
 .container {
   max-width: var(--container-width);
+  padding-inline: 20px;
   margin-inline: auto;
 }/*# sourceMappingURL=styles.css.map */

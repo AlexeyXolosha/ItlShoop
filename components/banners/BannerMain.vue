@@ -1,6 +1,7 @@
 <template>
     <div class="banner-main">
-        <div class="banner-main__inner">
+       <div class="container">
+           <div class="banner-main__inner">
             <div class="banner-main__banner">
                 <div class="banner__body">
                     <div class="banner__info">
@@ -97,6 +98,7 @@
                 </li>
             </ul>
         </div>
+       </div>
     </div>
 </template>
 
