@@ -19,7 +19,6 @@
   </div>
 </template>
 
-
 <style lang="scss">
 .watch{
   

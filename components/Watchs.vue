@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section class="section container">
     <div class="section__body">
       <div class="section__info">
         <h2 class="section__title">
@@ -8,6 +8,7 @@
       </div>
       <div class="section__list">
         <UICardWatched></UICardWatched>
+
       </div>
     </div>
   </section>

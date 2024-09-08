@@ -1,5 +1,5 @@
 <template>
-    <section class="section">
+    <section class="section container">
        <div class="section__body">
             <div class="section__info">
                 <h2 class="section__title">
@@ -19,12 +19,4 @@
        </div>
     </section>
 </template>
-
-<style lang="scss" scoped>
-    .section__list{
-        display: flex;
-        justify-content: space-between;
-        column-gap: 24px;
-    }
-</style>
 

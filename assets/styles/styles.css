@@ -183,10 +183,6 @@ body {
   color: var(--color-blac-80);
 }
 
-.section {
-  padding-block: 68px;
-}
-
 :root {
   --color-blue: #0e6cdd;
   --color-blue-transparent: rgba(14, 108, 221, 0.2);
@@ -211,6 +207,27 @@ body {
 
 .container {
   max-width: var(--container-width);
-  padding-inline: 20px;
+  padding-right: 20px;
   margin-inline: auto;
+}
+
+.section {
+  padding-block: 68px;
+}
+.section__info {
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+  margin-bottom: 40px;
+}
+.section__title {
+  font-size: 30px;
+  font-weight: 400;
+}
+.section__list {
+  display: flex;
+  justify-content: space-between;
+  -moz-column-gap: 24px;
+       column-gap: 24px;
+  align-items: center;
 }/*# sourceMappingURL=styles.css.map */

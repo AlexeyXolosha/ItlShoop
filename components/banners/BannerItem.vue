@@ -1,7 +1,7 @@
 <template>
     <div class="banner-sale">
         <div class="banner-sale__body">
-            <img src="../../public/banner/banner1.png" alt="" class="banner-sale__image">
+            <img src="../../public/banner/banner1.png" alt="" width="552" height="380" class="banner-sale__image">
             <div class="banner-sale__info">
                 <div class="banner-sale__category">
                     <p>Малышам</p>

@@ -7,7 +7,7 @@
             <span class="card-product__sticker sticker-bg--strawberry">Новинка</span>
             <span class="card-product__sticker sticker-bg--blue">Хит продаж</span>
         </div>
-        <img src="../../public/iph.png" alt="" class="card-product__image" width="200" height="188">
+        <img src="../../public/iph.png" alt="" class="card-product__image">
         <div class="card-product__info">
             <div class="card-product__rating">
                 <img src="../../public/icons/star.svg" alt="" width="13" height="12">
@@ -134,6 +134,7 @@
                 color: var(--color-blue);
             }
         }
+
     }
 
     .sticker-bg--green{
