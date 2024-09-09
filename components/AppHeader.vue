@@ -89,7 +89,7 @@ import YellowButton from './UI/YellowButton.vue';
 </template>
 
 
-<style lang="scss" scoped>
+<style lang="scss" >
     .header{
         display: flex;
         flex-direction: column;

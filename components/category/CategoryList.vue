@@ -3,7 +3,7 @@
        <div class="section__body">
             <div class="section__info">
                 <h2 class="section__title">
-                    Популярные категории
+                    <slot></slot>
                 </h2>
             </div>
             <div class="section__list">

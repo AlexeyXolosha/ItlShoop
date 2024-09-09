@@ -1,9 +1,11 @@
 <template>
+        <BannerSlide></BannerSlide>
         <ProductHitList>Хиты продаж</ProductHitList>
-        <CategoryList></CategoryList>
+        <CategoryList>Популярные категории</CategoryList>
         <BannersList></BannersList>
-        <UICardBrand></UICardBrand>
+        <Brand>Популярные бренды</Brand>
         <ProductHitList>Распродажа</ProductHitList>
+        <BannersBanner></BannersBanner>
         <ProductHitList>Рекомендуем</ProductHitList>
         <Blogs></Blogs>
         <Company></Company>

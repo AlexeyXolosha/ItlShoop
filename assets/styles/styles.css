@@ -183,6 +183,10 @@ body {
   color: var(--color-blac-80);
 }
 
+.shop-currentPrice {
+  font-size: 30px;
+}
+
 :root {
   --color-blue: #0e6cdd;
   --color-blue-transparent: rgba(14, 108, 221, 0.2);
@@ -219,6 +223,9 @@ body {
   flex-direction: column;
   row-gap: 16px;
   margin-bottom: 40px;
+}
+.section--hidden-x {
+  overflow-x: hidden;
 }
 .section__title {
   font-size: 30px;
