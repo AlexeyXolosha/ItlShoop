@@ -6,7 +6,7 @@
         </div>
         <div class="banner-wide__bg"></div>
         <div class="banner-wide__image">
-            <img src="../../public/company_photo.png" alt="">
+            <img src="../../public/banners.png" alt="">
         </div>
     </div>
    </section>
@@ -39,9 +39,16 @@
         }
 
         &__image{
-            width: 100%;
-            object-fit: contain;
+        
+
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
         }
+
+
     }
 
     .banner-sale-h1{

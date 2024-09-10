@@ -10,10 +10,16 @@
                                     Скидки до 50% на втрой товар встраиваемой техники.
                                 </h1>
                                 <span class="banner__subtitle">До 30 апреля</span>
+                                <div class="banner__pagination ">
+                                    <div class="banner__item-pg active"></div>
+                                    <div class="banner__item-pg"></div>
+                                    <div class="banner__item-pg "></div>
+                                    <div class="banner__item-pg "></div>
+                                </div>
                             </div>
                             <div class="banner__bg"></div>
                             <div class="banner__content-image">
-                                <img src="../public/banners.jpg" alt="" class="banner__image">
+                                <img src="../public/baner.png" alt="" class="banner__image">
                             </div>
                         </div>
                     </SwiperSlide>
@@ -27,6 +33,7 @@
                             </div>
                             <div class="banner__bg"></div>
                             <div class="banner__content-image">
+                                <img src="../public/Baner 1.png" alt="" class="banner__image">
                             </div>
                         </div>
                     </SwiperSlide>
@@ -110,5 +117,29 @@
             max-height: 320px;
             object-fit: cover;
         }
+
+        &__pagination{
+            display: flex;
+            align-items: center;
+            column-gap: 6px;
+        }
+
+        &__item-pg{
+            width: 8px;
+            height: 8px;
+            background-color: var(--color-blue);
+            border-radius: 50%;
+            opacity: 0.3;
+
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+
+    .active{
+        width: 18px;
+        border-radius: 4px;
+        opacity: 1;
     }
 </style>

@@ -80,7 +80,6 @@
 .product-day {
   background-color: var(--color-white);
   border-radius: var(--border-radius-6px);
-  box-shadow: -1px 11px 11px 7px rgba(34, 60, 80, 0.2);
   padding: 31px 32px 28px 40px;
 
   &__time {
