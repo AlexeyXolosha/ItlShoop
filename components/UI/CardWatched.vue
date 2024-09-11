@@ -23,7 +23,8 @@
 .watch{
   
   &__body{
-    border: 1px solid var(--color-blue-transparent-alt-2);
+    border-radius: var(--border-radius-6px);
+    border: 1px solid var(--color-blue-transparent);
     padding: 32px;
   }
 

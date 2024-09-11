@@ -11,10 +11,12 @@
                     <UIYellowButton class="yellowButton-height">Подписаться</UIYellowButton>
                </div>
             </div>
+           
             <div class="footer__info">
+
                 <div class="footer__social">
-                    <div class="footer__telephone">
-                        <a href="tel:+77273397010">+7 727 339 70 10</a>
+                    <div class="footer__info-telephone">
+                        <a href="tel:+77273397010" class="footer__telephone">+7 727 339 70 10</a>
                         <span>Задать вопрос или оформить покупку.</span>
                     </div>
                     
@@ -44,6 +46,130 @@
                         </ul>
                     </div>
 
+                    <div class="footer__privacy">
+                        <ul class="footer__privacy-list">
+                            <li class="footer__privacy-item">
+                                <a href="" class="footer__privacy-link">
+                                    Политика конфиденциальности
+                                </a>
+                            </li>
+                            <li class="footer__privacy-item">
+                                <a href="" class="footer__privacy-link">
+                                    Пользовательское соглашение
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <div class="footer__section-title">
+                        <p>Магазины</p>
+                    </div>
+                    <div class="footer__element">
+                        <ul class="footer__list">
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">г. Алмата, ул. Толе Би 100</a>
+                                <span class="sp-block-black-80">Открыто до 19:00</span>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">г. Алмата, ул. Пушкина 189</a>
+                                <span class="sp-block-black-80">Открыто до 19:00</span>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">г. Алмата, ул. Фурманова 45</a>
+                                <span class="sp-block-black-80">Открыто до 19:00</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <div class="footer__section-title">
+                        <p>О компании</p>
+                    </div>
+                    <div class="footer__element">
+                        <ul class="footer__list">
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Акции и новости</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Корпоративным клиентам</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Вакансии</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Контакты</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Обратная связь</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <div class="footer__section-title">
+                        <p>Помощь</p>
+                    </div>
+                    <div class="footer__element">
+                        <ul class="footer__list">
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Где мой заказ?</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Обмен и возврат</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Гарантии</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Сервисные центры</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Бонусная программа</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="footer__section">
+                    <div class="footer__section-title">
+                        <p>Получение и оплата</p>
+                    </div>
+                    <div class="footer__element">
+                        <ul class="footer__list">
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Доставка курьером</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Доставка транспортной компанией</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Самовывоз</a>
+                            </li>
+                            <li class="footer__item">
+                                <a href="" class="footer__el-link">Способы оплаты</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+                
+
+            </div>
+
+            <div class="footer__border"></div>
+
+            <div class="footer__company">
+                <div class="footer__company-title">
+                    © ITL.B2C 2023
+                </div>
+                <div class="footer__logo">
+                    <img src="../public/footer__logo.svg" alt="">
+                    <img src="../public/footer__company.svg" alt="">
 
                 </div>
             </div>
@@ -53,9 +179,24 @@
 
 <style lang="scss">
     .footer{
+        display: flex;
+        flex-direction: column;
+
+        &__section{
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        row-gap: 20px;
+        }
+
+        &__section-title{
+            font-size: 20px;
+        }
+
         &__subscription{
             padding: 30px 34px 30px 32px;
             background-color: var(--color-blue-transparent-card);
+            margin-bottom: 56px;
         }
 
         &__inner{
@@ -92,6 +233,108 @@
                 border-color: #0E6CDD;
                 outline: none;
             }
+        }
+
+        &__info{
+            display: flex;
+            justify-content: space-between;
+            column-gap: 24px; 
+            margin-bottom: 56px;
+        }
+
+        &__social{
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: start;
+            row-gap: 24px;
+            width: 552px;
+        }
+
+        &__info-telephone{
+            display: flex;
+            flex-direction: column;
+
+            span{
+                color: var(--color-blac-80);
+            }
+        }
+
+        &__telephone{
+            font-size: 30px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        &__social-links{
+            display: flex;
+            align-items: center;
+            column-gap: 12px;
+        }
+
+        &__link{
+            display: flex;
+            padding: 10px 12px;
+            border-radius: var(--border-radius-6px);
+            color: var(--color-blue);
+            background-color: var(--color-blue-transparent-card);
+
+        }
+
+        &__privacy-list{
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__privacy-link{
+            color: #333;
+            font-size: 14px;
+            text-decoration: none;
+
+            &:hover{
+                color: var(--color-blue);
+            }
+        }   
+        
+        &__list{
+            display: flex;
+            flex-direction: column;
+            row-gap: 12px;
+        }
+
+        &__item{
+            display: flex;
+            flex-direction: column;
+        }
+
+        &__el-link{
+            color: #333;
+            text-decoration: none;
+
+            &:hover{
+                color: var(--color-blue);
+            }
+        }
+
+        &__border{
+            border: 1px solid var(--color-blue-transparent-card);
+            margin-bottom: 49px;
+        }
+
+        &__company{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            &-title{
+                font-size: 14px;
+            }
+        }
+
+        &__logo{
+            display: flex; 
+            align-items: center;
+            column-gap: 4px;
         }
     }
 .yellowButton-height{
