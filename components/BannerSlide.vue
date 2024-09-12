@@ -1,15 +1,19 @@
+<script setup>
+const {data: BannerSlide} = fetchBannerSlide()
+</script>
+
 <template>
     <div class="banner">
         <div class="banner__container section--hidden-x container ">
             <div class="banner__inner">
                    <Swiper class="banner__swiper">
-                    <SwiperSlide>
+                    <SwiperSlide v-for="banner in BannerSlide?.data" :key="banner.id">
                         <div class="banner__slide">
                             <div class="banner__info-block">
                                 <h1 class="banner__title h1-banner">
-                                    Скидки до 50% на втрой товар встраиваемой техники.
+                                    {{ banner?.attributes.name }}
                                 </h1>
-                                <span class="banner__subtitle">До 30 апреля</span>
+                                <span class="banner__subtitle">{{banner?.text?.text}}</span>
                                 <div class="banner__pagination ">
                                     <div class="banner__item-pg active"></div>
                                     <div class="banner__item-pg"></div>
@@ -20,20 +24,6 @@
                             <div class="banner__bg"></div>
                             <div class="banner__content-image">
                                 <img src="../public/baner.png" alt="" class="banner__image">
-                            </div>
-                        </div>
-                    </SwiperSlide>
-                    <SwiperSlide>
-                        <div class="banner__slide">
-                            <div class="banner__info-block">
-                                <h1 class="banner__title h1-banner">
-                                    Скидки до 50% на втрой товар встраиваемой техники.
-                                </h1>
-                                <span class="banner__subtitle">До 30 апреля</span>
-                            </div>
-                            <div class="banner__bg"></div>
-                            <div class="banner__content-image">
-                                <img src="../public/Baner 1.png" alt="" class="banner__image">
                             </div>
                         </div>
                     </SwiperSlide>

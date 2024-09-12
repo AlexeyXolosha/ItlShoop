@@ -1,6 +1,8 @@
-<script setup lang="ts">
-import YellowButton from './UI/YellowButton.vue';
+<script setup>
+import { fetchMenuCategories } from '~/utils/apiRequest';
+const {data: headeSale} = fetchMenuCategories()
 </script>
+
 
 <template>
     <header class="header">
@@ -15,7 +17,7 @@ import YellowButton from './UI/YellowButton.vue';
                 </div>
             </div>
 
-            <YellowButton>Каталог товаров</YellowButton>
+            <UIYellowButton>Каталог товаров</UIYellowButton>
 
             <div class="header__search">
                 <input class="header__search-input" type="text" placeholder="Искать товар со скидками до 50% ">
@@ -44,47 +46,13 @@ import YellowButton from './UI/YellowButton.vue';
                 </div>
             </div>
         </div>
-
-            <div class="header__category">
-                <ul class="header__category-list">
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Все акции</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">OLED телевизоры </a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Iphone  14</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Samsung S23</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Ноутбуки</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Кондиционеры</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Стиральные машины</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Гарантия низкой цены</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">PlayStation 5</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Умные колонки</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Пылесосы Dyson</a>
-                    </li>
-                    <li class="header__category-item">
-                        <a href="" class="header__category-link">Тренажеры</a>
-                    </li>
-                </ul>
-            </div>
+        <div class="header__category">
+            <ul class="header__category-list">
+                <li v-for="(category, index) in headeSale?.data.slice(0, 12)" :key="index"  class="header__category-item">
+                     <a :href="``" class="header__category-link">{{ category?.attributes.name }}</a>
+                </li>
+            </ul>
+        </div>
     </header>
 </template>
 

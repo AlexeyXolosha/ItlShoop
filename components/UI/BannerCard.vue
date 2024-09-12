@@ -1,39 +1,19 @@
+<script setup>
+
+const {data: advantages} = fetchBannerAdvantages()
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
         <div class="banner__card">
             <ul class="banner__card-list">
-                <li class="banner__card-item">
+                <li v-for="advantage in advantages?.data" :key="advantage.i" class="banner__card-item">
                     <a href="" class="banner__card-link">
-                        <img src="../../public/icons/user.svg" alt="" width="26" height="26">
-                        <span>Авторизуйтесь, чтобы 
-                            применить бонусные тенге</span>
-                    </a>
-                </li>
-                <li class="banner__card-item">
-                    <a href="" class="banner__card-link">
-                        <img src="../../public/icons/shield.svg" alt="" width="26" height="26">
-                        <span>Страхование техники от утраты 
-                            и повреждений</span>
-                    </a>
-                </li>
-                <li class="banner__card-item">
-                    <a href="" class="banner__card-link">
-                        <img src="../../public/icons/export.svg" alt="" width="26" height="26">
-                        <span>Экспресс-доставка от 2 часов 
-                            по Алматы</span>
-                    </a>
-                </li>
-                <li class="banner__card-item">
-                    <a href="" class="banner__card-link">
-                        <img src="../../public/icons/card.svg" alt="" width="26" height="26">
-                        <span>Оформляй в рассрочку и кредит 
-                            не выходя из дома</span>
-                    </a>
-                </li>
-                <li class="banner__card-item">
-                    <a href="" class="banner__card-link">
-                        <img src="../../public/icons/reloaded.svg" alt="" width="26" height="26">
-                        <span>Обменяйте свой гаджет по 
-                            программе Trade-in</span>
+                        <img :src="imageUpload(advantage.attributes?.image)" alt="" width="26" height="26">
+                        <span v-html="advantage.attributes.text"></span>
                     </a>
                 </li>
             </ul>
@@ -59,6 +39,11 @@
             background-color: var(--color-white);
             border-radius: var(--border-radius-6px);
             padding: 20px 28px;
+            min-height: 100px;
+
+            span{
+                width: 200px;
+            }
         }
     }
 </style>

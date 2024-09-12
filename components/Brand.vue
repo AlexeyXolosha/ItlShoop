@@ -1,3 +1,11 @@
+<script setup>
+const {data: brandList} = fetchBrandsList()
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
   <section class="section container">
     <div class="section__info">
@@ -8,29 +16,8 @@
     <div class="card-brand">
       <div class="card-brand__body">
         <ul class="card-brand__list">
-          <li class="card-brand__item">
-              <img src="../public/brand/dyson.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/samsung.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/apple.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/Robot.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/sony.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/logitech.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/tefal.svg" alt="" class="card-brand__image">
-          </li>
-           <li class="card-brand__item">
-              <img src="../public/brand/asus.svg" alt="" class="card-brand__image">
+          <li v-for="brand in brandList?.data.slice(0, 8)"  class="card-brand__item">
+              <img :src="imageUpload(brand.attributes?.main_page.image)" alt="" class="card-brand__image">
           </li>
         </ul>
       </div>

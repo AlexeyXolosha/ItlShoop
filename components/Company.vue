@@ -20,7 +20,7 @@
 
 <style lang="scss">
   .company{
-    border: 1px solid var(--color-blue-transparent-alt-2);
+    border: 1px solid var(--color-blue-transparent);
     border-radius: var(--border-radius-6px);
     padding: 40px;
 
