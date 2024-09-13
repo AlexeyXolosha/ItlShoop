@@ -17,8 +17,12 @@ const {data: headeSale} = fetchMenuCategories()
                 </div>
             </div>
 
-            <UIYellowButton>Каталог товаров</UIYellowButton>
-
+            <UIYellowButton>
+                    <template #icon>
+                        <i class="fa-regular fa-bars"></i>
+                    </template>
+                    Список желаемого
+            </UIYellowButton>
             <div class="header__search">
                 <input class="header__search-input" type="text" placeholder="Искать товар со скидками до 50% ">
             </div>

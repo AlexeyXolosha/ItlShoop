@@ -1,11 +1,24 @@
+<script setup> 
+const props = defineProps ({
+  title: String,
+  image: String,
+  link: String,
+  section: String
+})
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
 
   <div class="blog">
     <div class="blog__body">
-      <img src="../../public/blog.png" alt="" class="blog__image">
+      <img :src="imageUpload(image)" alt="" class="blog__image">
       <div class="blog__info">
-        <p class="blog__title">PlayStation 5 Slim: новая ревизия, которая понравится вам больше обычной</p>
-        <span>Обзор / 28 июня 2022</span>
+        <p class="blog__title">{{title}}</p>
+        <span>{{section}} / 28 июня 2022</span>
       </div>
     </div>
 </div>
@@ -31,6 +44,11 @@
         font-size: 14px;
         color: var(--color-blac-80);
       }
+    }
+
+    &__image{
+      border-radius: var(--border-radius-6px);
+      max-height: 192px;
     }
 
     &__title{

@@ -1,12 +1,20 @@
+<script setup>
+const {data: bannerWide} = fetchBannerWide()
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
    <section class="section container">
-    <div class="banner-wide">
+    <div v-for="banner in bannerWide?.data" class="banner-wide">
         <div class="banner-wide__info">
-            <h1 class="banner__title banner-sale-h1">Скидки до 50% на втрой товар встраиваемой техники.</h1>
+            <h1 class="banner__title banner-sale-h1">{{ banner.attributes.name}}</h1>
         </div>
         <div class="banner-wide__bg"></div>
         <div class="banner-wide__image">
-            <img src="../../public/banners.png" alt="">
+            <img :src="imageUpload(banner.attributes.images.preview)" alt="">
         </div>
     </div>
    </section>
@@ -39,16 +47,13 @@
         }
 
         &__image{
-        
-
+            width: 100%;
             img{
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
             }
         }
-
-
     }
 
     .banner-sale-h1{

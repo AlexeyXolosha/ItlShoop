@@ -4,9 +4,10 @@
         <CategoryList>Популярные категории</CategoryList>
         <BannersList></BannersList>
         <Brand>Популярные бренды</Brand>
-        <ProductHitList>Распродажа</ProductHitList>
+        <ProductSaleProductList>Распродажа</ProductSaleProductList>
         <BannersBanner></BannersBanner>
-        <ProductHitList>Рекомендуем</ProductHitList>
+        <Sales>Акции</Sales>
+        <ProductRecommendedList>Рекомендуем</ProductRecommendedList>
         <Blogs></Blogs>
         <Company></Company>
         <Watchs></Watchs>

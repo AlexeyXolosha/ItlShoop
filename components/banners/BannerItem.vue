@@ -1,22 +1,38 @@
+<script setup>
+const props = defineProps({
+    id: Number,
+    image: String,
+    name: String,
+    title: String,
+    text: String,
+    button: Object
+})
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
     <div class="banner-sale">
         <div class="banner-sale__body">
-            <img src="../../public/banner/banner1.png" alt="" width="552" height="380" class="banner-sale__image">
+            <img :src="imageUpload(image)" alt="" width="552" height="380" class="banner-sale__image">
             <div class="banner-sale__info">
                 <div class="banner-sale__category">
-                    <p>Малышам</p>
+                    <p>{{title}}</p>
                 </div>
                 <div class="banner-sale__title">
-                    <h3>Комфортные и безопасные детские автокресла</h3>
+                    <h3 v-html="text"></h3>
                 </div>
-                <div class="banner-sale__price">
-                    <span>от 49 990 ₸</span>
+                <div class="banner-sale__links">
+                    <div v-for="(btn, index) in Object.values(button)"  :key="index" class="banner-sale__item">
+                        <a class="banner-sale__link"  :href="btn.link" v-if="btn && btn.text">{{btn.text}}</a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </template>
-
 
 <style lang="scss" scoped>
     .banner-sale{
@@ -29,6 +45,7 @@
         }
 
         &__image{
+            border-radius: var(--border-radius-6px);
             position: relative;
         }
 
@@ -58,14 +75,22 @@
             }
         }
 
-        &__price{
+        &__links{
+            display: flex;
+            column-gap: 16px;
+            align-items: center
+        }
+
+        &__link{
+            color: var();
+            cursor: pointer;
+            text-decoration: none;
+
             padding: 4px 14px;
             border: 1px solid var(--color-white);
             border-radius: var(--border-radius-4px);
             color: var(--color-white);
 
-            cursor: pointer;
-          
             &:hover{
                 color: var(--color-dark);
                 background-color: var(--color-white);

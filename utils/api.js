@@ -1,4 +1,4 @@
-export const BASE_URL = 'https://api.b2c.itl.digital/';
+export const BASE_URL = 'https://api.b2c.itl.digital';
 
 const defaultHeader = {
     'Content-Type': 'application/json',

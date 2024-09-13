@@ -5,6 +5,36 @@ import {Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
+const {data: hitList} = fetchHit()
+const link = ref(''); 
+const hitProduct = ref(null);
+
+const linkItem = (selectedLink) => {
+    link.value = selectedLink;
+    console.log(link.value)
+}
+
+const fetchProduct = async (endpoint) => {
+    try {
+        const response = await $fetch(`${BASE_URL}${endpoint}`);
+        return response;
+    } catch (error) {
+        console.error('Ошибка при получении данных продукта:', error);
+        throw error;
+    }
+}
+
+watch(link, async (newLink, oldLink) => {
+    console.log('Ссылка изменена с', oldLink, 'на', newLink);
+    if (newLink) {
+        try {
+            hitProduct.value = await fetchProduct(newLink);
+            console.log('Полученные данные продукта:', hitProduct.value);
+        } catch (error) {
+            console.error('Ошибка при получении данных продукта:', error);
+        }
+    }
+});
 </script>
 
 <template>
@@ -14,7 +44,7 @@ import 'swiper/css/navigation';
                 <h2 class="section__title">
                     <slot></slot>
                 </h2>
-                <UITabs></UITabs>
+                <UITabs :items="hitList" @get-link="linkItem"></UITabs>
             </div>
             <Swiper 
             navigation
@@ -22,26 +52,15 @@ import 'swiper/css/navigation';
             :space-between="24",
             :modules="[Navigation]"
             >
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
-                </SwiperSlide>
-                <SwiperSlide>
-                    <UICardItem></UICardItem>
+                <SwiperSlide v-for="hitProduct in hitProduct?.data">
+                    <UICardItem 
+                    :id="hitProduct.id"
+                    :name="hitProduct.attributes?.name"
+                    :image="hitProduct.attributes.image"
+                    :price="hitProduct.attributes.product.price.valueFormatted"
+                    :basePrice="hitProduct.attributes.product.basePrice?.valueFormatted"
+                    :count-shop="hitProduct.attributes.product.stores.count.title"
+                    ></UICardItem>
                 </SwiperSlide>
             </Swiper>
         </div>

@@ -1,13 +1,6 @@
-<script setup>
-import { defineProps } from "vue";
-
-const props = defineProps({
-  imageSrc: String,
-});
-</script>
-
 <template>
     <button class="yellowButton">
+      <slot name="icon"></slot>
       <div>
         <slot></slot>
       </div>
@@ -16,6 +9,9 @@ const props = defineProps({
 
 <style lang="scss">
     .yellowButton{
+        display: flex;
+        align-items: center;
+        column-gap: 10px;
         background-color: #ffd740;
         border: none;
         border-radius: 6px;
@@ -24,6 +20,8 @@ const props = defineProps({
         padding-inline: 20px;
         transition: 0.3s ease;
         cursor: pointer;
+
+        white-space: nowrap;
     }
 
     .yellowButton:hover{
