@@ -1,28 +1,39 @@
 <script setup>
-defineProps ({
-    items: Object,
-})
-const emit = defineEmits(['get-link']);
+const props = defineProps({
+  items: Object,
+});
 
+const emit = defineEmits(['get-link']);
 const selectedLink = ref(null);
 
+// Функция для обработки клика по ссылке
 const linkItem = (link) => {
-  selectedLink.value = link; 
-  emit('get-link', link); 
+  selectedLink.value = link;
+  emit('get-link', link);
 };
+
+onMounted(() => {
+  if (props.items?.data?.length) {
+    selectedLink.value = props.items.data[0].links.self;
+    emit('get-link', selectedLink.value);
+  }
+});
 </script>
 
 <template>
-    <div class="tabs">
-        <ul class="tabs__list">
-            <li class="tabs__list-item">
-                <a class="tabs__list-link"  @click="linkItem(null)" :class="{ active: selectedLink === null }">Все категории</a>
-            </li>
-            <li v-for="(item, index) in items?.data" :key="index" class="tabs__list-item">
-                <a class="tabs__list-link" @click="linkItem(item.links.self)"  :class="{ active: selectedLink === item.links.self }">{{item.attributes.name}}</a>
-            </li>
-        </ul>
-    </div>
+  <div class="tabs">
+    <ul class="tabs__list">
+      <li v-for="(item, index) in items?.data" :key="index" class="tabs__list-item">
+        <a
+          class="tabs__list-link"
+          @click="linkItem(item.links.self)"
+          :class="{ active: selectedLink === item.links.self }"
+        >
+          {{ item.attributes.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
 </template>
 
 <style lang="scss">

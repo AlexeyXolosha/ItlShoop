@@ -54,12 +54,7 @@ watch(link, async (newLink, oldLink) => {
             >
                 <SwiperSlide v-for="Recomendade in Recomendade?.data">
                     <UICardItem 
-                    :id="Recomendade.id"
-                    :name="Recomendade.attributes?.name"
-                    :image="Recomendade.attributes.image"
-                    :price="Recomendade.attributes.product.price.valueFormatted"
-                    :basePrice="Recomendade.attributes.product.basePrice?.valueFormatted"
-                    :count-shop="Recomendade.attributes.product.stores.count.title"
+                      :product="Recomendade"
                     ></UICardItem>
                 </SwiperSlide>
             </Swiper>

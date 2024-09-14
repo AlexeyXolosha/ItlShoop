@@ -1,28 +1,26 @@
 <script setup>
 const props = defineProps({
-  image: String,
-  name: String,
-  countShop: String,
-  price: String,
-  basePrice: String,
-  links: String,
-  stikers: Array,
+  product: Object
 })
 
 const imageUpload = (url) => {
     return url ? `${BASE_URL}${url}` : '';
+}
+
+const stickerColors = {
+  'Хит': 'sticker-bg--blue',
+  'Советуем': 'sticker-bg--green',
+  'Новинка': 'sticker-bg--strawberry',
+  'Акция': 'sticker-bg--red'
 }
 </script>
 
 <template>
     <div class="card-product">
         <div class="card-product__sticker-list">
-            <span class="card-product__sticker sticker-bg--green">Товар недели</span>
-            <span class="card-product__sticker sticker-bg--red">Скидка 6%</span>
-            <span class="card-product__sticker sticker-bg--strawberry">Новинка</span>
-            <span class="card-product__sticker sticker-bg--blue">Хит продаж</span>
+            <span  v-for="sticker in product.attributes.stikers" :key="sticker" :class="['card-product__sticker', stickerColors[sticker]]">{{ sticker }}</span>
         </div>
-        <img :src="imageUpload(image)" alt="" class="card-product__image">
+        <img :src="imageUpload(product.attributes.image)" alt="" class="card-product__image">
         <div class="card-product__info">
             <div class="card-product__rating">
                 <img src="../../public/icons/star.svg" alt="" width="13" height="12">
@@ -31,16 +29,16 @@ const imageUpload = (url) => {
                 </div>
             </div>
             <div class="card-product__name">
-                <p>{{name}}</p>
+                <p>{{product.attributes?.name}}</p>
             </div>
             <div class="card-product__shop-count">
-                <p><span>{{ countShop }}</span> </p>
+                <p><span>{{ product.attributes.product.stores.count.title }}</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
-                <span v-if="basePrice">{{basePrice}}</span>
+                <span v-if="basePrice">{{product.attributes.product.basePrice?.valueFormatted}}</span>
             </div>
             <div class="card-product__shop-currentPrice">
-                <p>{{ price }}</p>
+                <p>{{ product.attributes.product.price.valueFormatted }}</p>
             </div>
         </div>
 

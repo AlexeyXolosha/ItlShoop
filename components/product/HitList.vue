@@ -13,7 +13,7 @@ const {data: hitList} = fetchHit()
 
 const linkItem = (selectedLink) => {
     link.value = selectedLink;
-    console.log(link.value)
+    // console.log(link.value)
 }
 
 const fetchProduct = async (endpoint) => {
@@ -27,11 +27,11 @@ const fetchProduct = async (endpoint) => {
 }
 
 watch(link, async (newLink, oldLink) => {
-    console.log('Ссылка изменена с', oldLink, 'на', newLink);
+    // console.log('Ссылка изменена с', oldLink, 'на', newLink);
     if (newLink) {
         try {
             hitProduct.value = await fetchProduct(newLink);
-            console.log('Полученные данные продукта:', hitProduct.value);
+          //  console.log('Полученные данные продукта:', hitProduct.value);
         } catch (error) {
             console.error('Ошибка при получении данных продукта:', error);
         }
@@ -56,12 +56,7 @@ watch(link, async (newLink, oldLink) => {
             >
                 <SwiperSlide v-for="hitProduct in hitProduct?.data">
                     <UICardItem 
-                    :id="hitProduct.id"
-                    :name="hitProduct.attributes?.name"
-                    :image="hitProduct.attributes.image"
-                    :price="hitProduct.attributes.product.price.valueFormatted"
-                    :basePrice="hitProduct.attributes.product.basePrice?.valueFormatted"
-                    :count-shop="hitProduct.attributes.product.stores.count.title"
+                      :product="hitProduct"
                     ></UICardItem>
                 </SwiperSlide>
             </Swiper>
