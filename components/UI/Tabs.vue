@@ -4,8 +4,11 @@ defineProps ({
 })
 const emit = defineEmits(['get-link']);
 
-const linkItem = (selectedLink) => {
-    emit('get-link', selectedLink);
+const selectedLink = ref(null);
+
+const linkItem = (link) => {
+  selectedLink.value = link; 
+  emit('get-link', link); 
 };
 </script>
 
@@ -13,10 +16,10 @@ const linkItem = (selectedLink) => {
     <div class="tabs">
         <ul class="tabs__list">
             <li class="tabs__list-item">
-                <a class="tabs__list-link active">Все категории</a>
+                <a class="tabs__list-link"  @click="linkItem(null)" :class="{ active: selectedLink === null }">Все категории</a>
             </li>
             <li v-for="(item, index) in items?.data" :key="index" class="tabs__list-item">
-                <a class="tabs__list-link" @click="linkItem(item.links.self)">{{item.attributes.name}}</a>
+                <a class="tabs__list-link" @click="linkItem(item.links.self)"  :class="{ active: selectedLink === item.links.self }">{{item.attributes.name}}</a>
             </li>
         </ul>
     </div>
@@ -49,6 +52,8 @@ const linkItem = (selectedLink) => {
     }
 
     .active{
+       color: var(--color-white);
        border-color: var(--color-blue); 
+       background-color: var(--color-blue);
     }
 </style>

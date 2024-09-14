@@ -5,9 +5,11 @@ import {Navigation} from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const {data: hitList} = fetchHit()
+
 const link = ref(''); 
 const hitProduct = ref(null);
+
+const {data: hitList} = fetchHit()
 
 const linkItem = (selectedLink) => {
     link.value = selectedLink;
