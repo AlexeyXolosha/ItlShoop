@@ -35,7 +35,7 @@ const stickerColors = {
                 <p><span>{{ product.attributes.product.stores.count.title }}</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
-                <span v-if="basePrice">{{product.attributes.product.basePrice?.valueFormatted}}</span>
+                <span v-if="product.attributes.product.basePrice?.valueFormatted">{{product.attributes.product.basePrice?.valueFormatted}}</span>
             </div>
             <div class="card-product__shop-currentPrice">
                 <p>{{ product.attributes.product.price.valueFormatted }}</p>
@@ -52,7 +52,6 @@ const stickerColors = {
             </div>
         </div>
     </div>
-
 </template>
 
 <style lang="scss" scoped>
@@ -105,6 +104,7 @@ const stickerColors = {
         &__name{
             max-width: 200px;
             margin-bottom: 6px;
+            line-height: 24px;
         }
 
         &__shop-count{

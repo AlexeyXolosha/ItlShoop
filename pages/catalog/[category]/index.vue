@@ -1,3 +1,4 @@
 <template>
-    Привет
+  <BannerTitle></BannerTitle>
+  <Watchs></Watchs>
 </template>

@@ -192,6 +192,18 @@ body {
   color: var(--color-blac-80);
 }
 
+.h1-custom {
+  font-size: 40px;
+  font-weight: 400;
+  font-style: normal;
+  max-width: 552px;
+}
+
+.heade-menu {
+  font-size: 18px;
+  line-height: 32px;
+}
+
 :root {
   --color-blue: #0e6cdd;
   --color-blue-transparent: rgba(14, 108, 221, 0.2);
@@ -201,6 +213,8 @@ body {
   --color-dark: #333;
   --color-bg: #F1F6FD;
   --color-blac-80: #7D7D7D;
+  --color-black-70: #9B9B9B;
+  --color-black-60: #B6B6B6;
   --color-black-30: #EDEDED;
   --color-green: #34A853;
   --color-white: #fff;
