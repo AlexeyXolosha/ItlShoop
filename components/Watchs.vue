@@ -8,7 +8,6 @@
       </div>
       <div class="section__list">
         <UICardWatched></UICardWatched>
-
       </div>
     </div>
   </section>
