@@ -9,7 +9,11 @@
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.section{
+  padding-top: 44px;
+}
+
 .catalog-up{
   display: flex;
   flex-direction: column;

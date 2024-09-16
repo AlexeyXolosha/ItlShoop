@@ -221,6 +221,8 @@ body {
   --color-red: #E31E24;
   --color-strawberry: #FB6340;
   --color-dark-yellow: #FFCA00;
+  --color-yellow-transparent: rgb(255, 215, 64, 0.25);
+  --color-yellow-active: rgb(255, 215, 64, 0.6);
   --border-radius-6px: 6px;
   --border-radius-4px: 4px;
   --container-width: 1724px;
