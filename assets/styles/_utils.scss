@@ -3,3 +3,7 @@
     padding-right: 20px;
     margin-inline: auto;
 }
+
+.visually-hidden {
+    @include visually-hidden;
+  }

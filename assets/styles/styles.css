@@ -208,6 +208,7 @@ body {
   --color-blue: #0e6cdd;
   --color-blue-transparent: rgba(14, 108, 221, 0.2);
   --color-blue-transparent-alt: rgba(14, 108, 221, 0.5);
+  --color-blue-transparent-checkbox: rgba(14, 108, 221, 0.3);
   --color-blue-transparent-card: rgba(14, 108, 221, 0.05);
   --color-dark-blue: #005CCC;
   --color-dark: #333;
@@ -233,6 +234,20 @@ body {
   max-width: var(--container-width);
   padding-right: 20px;
   margin-inline: auto;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  border: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+  -webkit-clip-path: inset(100%) !important;
+          clip-path: inset(100%) !important;
+  clip: rect(0 0 0 0) !important;
+  overflow: hidden !important;
 }
 
 .section {

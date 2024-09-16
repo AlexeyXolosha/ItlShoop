@@ -7,6 +7,7 @@
             <div class="catalog-filter__body">
               <FilterCollections></FilterCollections>
               <FilterCheckers></FilterCheckers>
+              <FilterCheckers></FilterCheckers>
             </div>
           </div>
           <div class="catalog-product">
