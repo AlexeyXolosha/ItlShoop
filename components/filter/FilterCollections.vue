@@ -47,6 +47,7 @@
     display: flex;
     align-items: center;
     column-gap: 8px; 
+    white-space: nowrap;
   }
 
   &__button{

@@ -7,36 +7,12 @@
                     <i class="fa-regular fa-angle-up"></i>
                 </div>
                 <div class="checkers__list">
-                    <label class="checkers__label">
-                        <input type="checkbox" class="checkbox__input visually-hidden" value="Apple">
-                        <span class="check__emulator"></span>
-                        <p class="check__title">Apple</p>
-                        <span> 12</span>
-                    </label>
-                    <label class="checkers__label">
-                        <input type="checkbox" class="checkbox__input visually-hidden" value="Apple">
-                        <span class="check__emulator"></span>
-                        <p class="check__title">Samsung</p>
-                        <span> 45</span>
-                    </label>
-                    <label class="checkers__label">
-                        <input type="checkbox" class="checkbox__input visually-hidden" value="Apple">
-                        <span class="check__emulator"></span>
-                        <p class="check__title">Google</p>
-                        <span> 8</span>
-                    </label>
-                    <label class="checkers__label">
-                        <input type="checkbox" class="checkbox__input visually-hidden" value="Apple">
-                        <span class="check__emulator"></span>
-                        <p class="check__title">Xiaomi </p>
-                        <span> 154</span>
-                    </label>
-                    <label class="checkers__label">
-                        <input type="checkbox" class="checkbox__input visually-hidden" value="Apple">
-                        <span class="check__emulator"></span>
-                        <p class="check__title">Poco</p>
-                        <span>28</span>
-                    </label>
+                   <UICustomChecker></UICustomChecker>
+                   <UICustomChecker></UICustomChecker>
+                   <UICustomChecker></UICustomChecker>
+                   <UICustomChecker></UICustomChecker>
+                   <UICustomChecker></UICustomChecker>
+                   <UICustomChecker></UICustomChecker>
                 </div>
                 <div class="checkers__more">
                     <span>Показать еще</span>
@@ -47,13 +23,14 @@
     </div>
 </template>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .checkers{
     &__body{
         display: flex;
         flex-direction: column;
         row-gap: 28px;
     }
+    
     &__title{
         display: flex;
         justify-content: space-between;
@@ -132,7 +109,4 @@
 .checkbox__input:checked + .check__emulator::after{
     transform: scale(1);
 }
-
-
-
 </style>

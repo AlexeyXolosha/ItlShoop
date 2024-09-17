@@ -101,7 +101,7 @@
     align-items: center;
     column-gap: 5px;
     font-family: "Circe";
-    font-weight: 600;
+    font-weight: 700;
     line-height: 1.28;
   }
 

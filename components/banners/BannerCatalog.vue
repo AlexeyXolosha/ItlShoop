@@ -22,6 +22,7 @@ const imageUpload = (url) => {
 <style lang="scss">
 .banner-catalog{
   background-color: var(--color-bg);
+  border-radius: var(--border-radius-6px);
   padding: 30px 72px;
 
   &__inner{
