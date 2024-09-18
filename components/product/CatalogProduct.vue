@@ -1,3 +1,17 @@
+<script setup>
+const route = useRoute()
+const category = ref(route.params.category);
+
+const {data: catalogProduct, error} = fetchProductCatalog(category.value);
+
+watch(() => route.params.category, (newCategory) => {
+  category.value = newCategory;
+  fetchProductCatalog(newCategory);
+}, { immediate: true });
+
+console.log(catalogProduct.value)
+</script>
+
 <template>
   <section class="section container">
     <div class="section__body">
@@ -20,21 +34,7 @@
                 </select>
               </div>
               <div class="catalog-product__list">
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
-                <UICardItemCag></UICardItemCag>
+                <UICardItem v-for="item in catalogProduct?.included?.items" :key="item.id" :product="item"></UICardItem>
               </div>
             </div>
             <div class="catalog-product__footer">

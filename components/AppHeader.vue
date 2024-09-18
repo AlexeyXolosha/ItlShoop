@@ -53,7 +53,7 @@ const {data: headeSale} = fetchMenuCategories()
         <div class="header__category">
             <ul class="header__category-list">
                 <li v-for="(category, index) in headeSale?.data.slice(0, 12)" :key="index"  class="header__category-item">
-                     <a :href="``" class="header__category-link">{{ category?.attributes.name }}</a>
+                     <a :href="category?.links.self" class="header__category-link">{{ category?.attributes.name }}</a>
                 </li>
             </ul>
         </div>

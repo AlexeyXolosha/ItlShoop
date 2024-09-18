@@ -32,13 +32,13 @@ const stickerColors = {
                 <p>{{product.attributes?.name}}</p>
             </div>
             <div class="card-product__shop-count">
-                <p><span>{{ product.attributes.product.stores.count.title }}</span> </p>
+                <p><span>{{ product.attributes.product.stores.count?.title }}</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
-                <span v-if="product.attributes.product.basePrice?.valueFormatted">{{product.attributes.product.basePrice?.valueFormatted}}</span>
+                <span v-if="product.attributes.product.basePrice?.valueFormatted">{{product?.attributes?.product?.basePrice?.valueFormatted}}</span>
             </div>
             <div class="card-product__shop-currentPrice">
-                <p>{{ product.attributes.product.price.valueFormatted }}</p>
+                <p v-if="product.attributes.product.price?.valueFormatted">{{ product?.attributes?.product?.price?.valueFormatted }}</p>
             </div>
         </div>
 
