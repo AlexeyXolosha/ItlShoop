@@ -1,24 +1,24 @@
+<script setup>
+const props = defineProps({
+  properties: Array
+})
+
+console.log(props)
+</script>
+
 <template>
   <div class="catalog-filter__collections">
     <div class="collection">
-      <div class="collection__title">Популярные подборки</div>
+      <div class="collection__title">{{properties[0].name}}</div>
       <ul class="collection__list">
-        <li class="collection__item">
+        <li class="collection__item" v-for="(value, index) in properties[0].values.slice(0, 2)" :key="index">
           <button class="collection__button collection--active">
-            <span>iPhone 14 Pro / 14 Pro Max</span>
+            <span>{{ value.name }}</span>
           </button>
         </li>
-        <li class="collection__item">
-          <button class="collection__button ">
-            <span>Смартфоны с 2 sim-картами</span>
-          </button>
-        </li>
-        <li class="collection__item">
-          <button class="collection__button ">
-            <span>Новинки 2023</span>
-          </button>
-          <button class="collection__button ">
-            <span>Камерофоны</span>
+        <li class="collection__item" >
+          <button v-for="(value, index) in properties[0].values.slice(2, 4)" :key="index" class="collection__button collection--active">
+            <span>{{ value.name }}</span>
           </button>
         </li>
       </ul>

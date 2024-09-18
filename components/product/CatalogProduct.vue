@@ -1,15 +1,40 @@
 <script setup>
-const route = useRoute()
+const route = useRoute();
 const category = ref(route.params.category);
 
-const {data: catalogProduct, error} = fetchProductCatalog(category.value);
+
+const { data: catalogProduct, error } = fetchProductCatalog(category.value);
 
 watch(() => route.params.category, (newCategory) => {
   category.value = newCategory;
   fetchProductCatalog(newCategory);
 }, { immediate: true });
 
-console.log(catalogProduct.value)
+const itemsLink = computed(() => {
+  if (catalogProduct.value && catalogProduct.value.data && catalogProduct.value.data.relationships) {
+    return catalogProduct.value.data.relationships.items.links.self;
+  }
+  return null; 
+});
+
+const infoProduct = ref(null);
+
+watch(itemsLink, async (newLink) => {
+  if (newLink) {
+    try {
+      infoProduct.value = await fetchProduct(newLink);
+    } catch (err) {
+      console.error("Ошибка при загрузке информации о продукте:", err);
+    }
+  }
+}, { immediate: true });
+
+watch(infoProduct, (newInfoProduct) => {
+//  console.log("InfoProduct обновлен:", newInfoProduct);
+}, { immediate: true });
+
+//console.log(itemsLink.value);
+//console.log("CatalogProduct", catalogProduct.value);
 </script>
 
 <template>
@@ -19,7 +44,7 @@ console.log(catalogProduct.value)
         <div class="catalog__inner">
           <div class="catalog-filter">
             <div class="catalog-filter__body">
-              <FilterCollections></FilterCollections>
+              <FilterCollections :properties="catalogProduct?.included.filter.attributes.properties"></FilterCollections>
               <FilterRange></FilterRange>
               <FilterCheckers></FilterCheckers>
               <FilterCheckers></FilterCheckers>

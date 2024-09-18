@@ -20,7 +20,7 @@ const stickerColors = {
         <div class="card-product__sticker-list">
             <span  v-for="sticker in product.attributes.stikers" :key="sticker" :class="['card-product__sticker', stickerColors[sticker]]">{{ sticker }}</span>
         </div>
-        <img :src="imageUpload(product.attributes.image)" alt="" class="card-product__image">
+        <img :src="imageUpload(product.attributes.image)" alt="" width="192" height="192" class="card-product__image">
         <div class="card-product__info">
             <div class="card-product__rating">
                 <img src="../../public/icons/star.svg" alt="" width="13" height="12">
@@ -153,6 +153,10 @@ const stickerColors = {
             svg:hover{
                 color: var(--color-blue);
             }
+        }
+
+        &__image{
+            object-fit: contain;
         }
 
     }
