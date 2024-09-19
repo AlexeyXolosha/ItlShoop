@@ -25,13 +25,13 @@ const fetchProduct = async (endpoint) => {
 }
 
 watch(link, async (newLink, oldLink) => {
-    console.log('Ссылка изменена с', oldLink, 'на', newLink);
+   // console.log('Ссылка изменена с', oldLink, 'на', newLink);
     if (newLink) {
         try {
             SaleProduct.value = await fetchProduct(newLink);
-            console.log('Полученные данные продукта:', SaleProduct.value);
+         //   console.log('Полученные данные продукта:', SaleProduct.value);
         } catch (error) {
-            console.error('Ошибка при получении данных продукта:', error);
+           // console.error('Ошибка при получении данных продукта:', error);
         }
     }
 });

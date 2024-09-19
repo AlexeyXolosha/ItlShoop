@@ -25,8 +25,6 @@
         </ul>
     </div>
 </template>
-
-
 <style lang="scss">
     .pagination{
         &__list{
@@ -50,6 +48,13 @@
             border-radius: var(--border-radius-6px);
             border: 1px solid var(--color-blue);
             background-color: var(--colow-white);
+
+            transition: 0.2s;
+
+            &:hover{
+                color: var(--color-white);
+                background-color: var(--color-blue);
+            }
         }
     }
 </style>

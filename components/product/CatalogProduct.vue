@@ -30,14 +30,15 @@ watch(itemsLink, async (newLink) => {
 }, { immediate: true });
 
 watch(infoProduct, (newInfoProduct) => {
-//  console.log("InfoProduct обновлен:", newInfoProduct);
+// console.log("InfoProduct обновлен:", newInfoProduct);
 }, { immediate: true });
 
 //console.log(itemsLink.value);
-//console.log("CatalogProduct", catalogProduct.value);
+console.log("CatalogProduct", catalogProduct.value);
 </script>
 
 <template>
+  <BannerTitle :properties="catalogProduct"></BannerTitle>
   <section class="section container">
     <div class="section__body">
       <div class="catalog">
@@ -46,9 +47,7 @@ watch(infoProduct, (newInfoProduct) => {
             <div class="catalog-filter__body">
               <FilterCollections :properties="catalogProduct?.included.filter.attributes.properties"></FilterCollections>
               <FilterRange></FilterRange>
-              <FilterCheckers></FilterCheckers>
-              <FilterCheckers></FilterCheckers>
-              <FilterCheckers></FilterCheckers>
+              <FilterCheckers :properties="catalogProduct?.included.filter.attributes.properties"></FilterCheckers>
             </div>
           </div>
           <div class="catalog-product">
@@ -105,7 +104,15 @@ watch(infoProduct, (newInfoProduct) => {
 }
 
 .catalog-filter {
+  width: 100%;
   max-width: 264px;
+  max-height: 1100px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar{
+    display: none;
+  }
+  
 
   &__body {
     display: flex;
@@ -140,12 +147,19 @@ watch(infoProduct, (newInfoProduct) => {
   }
 
   &__button {
+    cursor: pointer;
     height: 44px;
     text-align: center;
     padding: 10px 70px;
-    width: 32.3%;
+    max-width: 552px;
     border: 1px solid var(--color-blue-transparent);
     background-color: var(--color-white);
+    transition: 0.2s ;
+
+    &:hover{
+      color: var(--color-white);
+      background-color: var(--color-blue);
+    }
   }
 
   &__info-block{

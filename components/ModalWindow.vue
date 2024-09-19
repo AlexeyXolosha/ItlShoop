@@ -1,35 +1,93 @@
+<script setup>
+import { ref, computed } from 'vue';
+
+const { data: modalCatalog, error } = fetchModalCatalog();
+
+// Состояние для активной категории
+const activeParentCategory = ref(null);
+
+// Проверяем, что данные успешно загружены
+const categoryTree = computed(() => {
+  if (!modalCatalog?.value || error?.value) {
+    return [];
+  }
+  
+  return buildCategoryTree(modalCatalog.value.data);
+});
+
+// Функция для построения дерева категорий
+const buildCategoryTree = (categories) => {
+  const map = {};
+  const tree = [];
+
+  // Создаем карту категорий
+  categories.forEach((category) => {
+    map[category.id] = { ...category, children: [] };
+  });
+
+  // Строим дерево
+  categories.forEach((category) => {
+    if (category.attributes.parentId) {
+      map[category.attributes.parentId]?.children.push(map[category.id]);
+    } else {
+      tree.push(map[category.id]);
+    }
+  });
+
+  return tree;
+};
+
+// Функция для установки активной категории
+const setActiveCategory = (category) => {
+  activeParentCategory.value = category;
+};
+
+defineEmits(['closeModal']);
+</script>
+
 <template>
-<div class="modal">
+  <div class="modal">
     <div class="modal__container">
-        <div class="modal__body">
-            <div class="modal-catalog__parent">
-                <ul class="modal-catalog__list">
-                    <li class="modal-catalog__item">
-                        <a href="" class="modal-catalog__link">Электроника</a>
-                        <i class="fa-regular fa-angle-right"></i>
-                    </li>
-                    <li class="modal-catalog__item">
-                        <a href="" class="modal-catalog__link">Мебель</a>
-                        <i class="fa-regular fa-angle-right"></i>
-                    </li>
-                    <li class="modal-catalog__item">
-                        <a href="" class="modal-catalog__link">Транспорт</a>
-                        <i class="fa-regular fa-angle-right"></i>
-                    </li>
-                    <li class="modal-catalog__item">
-                        <a href="" class="modal-catalog__link">Обувь</a>
-                        <i class="fa-regular fa-angle-right"></i>
-                    </li>
-                    <li class="modal-catalog__item">
-                        <a href="" class="modal-catalog__link">Одежда</a>
-                        <i class="fa-regular fa-angle-right"></i>
-                    </li>
-                </ul>
-            </div>
-            <div class="modal-catalog__separate">|</div>
+      <div class="modal__wlc">
+        <h2 class="modal__title">Каталог</h2>
+        <i @click="$emit('closeModal')" class="fa-regular fa-xmark-circle"></i>
+      </div>
+      <div class="modal__body">
+        <div class="modal-catalog__parent">
+          <!-- Список родительских категорий -->
+          <ul v-if="categoryTree.length" class="modal-catalog__list">
+            <li
+              v-for="category in categoryTree"
+              :key="category.id"
+              class="modal-catalog__item"
+              @click="setActiveCategory(category)"
+            >
+              <a href="javascript:void(0)" class="modal-catalog__link">
+                {{ category.attributes.name }}
+              </a>
+              <i v-if="category.children.length" class="fa-regular fa-angle-right"></i>
+            </li>
+          </ul>
+          <p v-else>Загрузка данных...</p>
         </div>
+        <div class="modal-catalog__separate"></div>
+        <div class="modal-catalog__children"  v-if="activeParentCategory">
+          <h3>{{ activeParentCategory.attributes.name }} - Подкатегории</h3>
+          <ul class="modal-catalog__list">
+            <li
+              v-for="child in activeParentCategory.children"
+              :key="child.id"
+              class="modal-catalog__item"
+            >
+              <a :href="child.links.self" class="modal-catalog__link">
+                {{ child.attributes.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-</div>
+  </div>
 </template>
 
 <style lang="scss">
@@ -58,21 +116,41 @@
         column-gap: 24px;
     }
 
+    &__wlc{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        i{
+            font-size: 18px;
+            cursor: pointer;
+        }
+    }
+
     &-catalog{
-        
+
+        &__list{
+          display: flex;
+          flex-direction: column;
+          row-gap: 5px;
+        }
+
+        &__separate{
+          width: 2px;
+          background-color: #333;
+        }
+
         &__item{
             display: flex;
             align-items: center;
             column-gap: 4px;
         }
 
-        &__separate{
-            background-color: #333;
-            width: 2px;
-            height: 100%;
+        &__link{
+            text-decoration: none;
+            font-size: 18px;
+            color: #333;
         }
-
-    
     }
 }
 </style>

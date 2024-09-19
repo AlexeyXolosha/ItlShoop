@@ -2,8 +2,6 @@
 const props = defineProps({
   properties: Array
 })
-
-console.log(props)
 </script>
 
 <template>
@@ -12,12 +10,12 @@ console.log(props)
       <div class="collection__title">{{properties[0].name}}</div>
       <ul class="collection__list">
         <li class="collection__item" v-for="(value, index) in properties[0].values.slice(0, 2)" :key="index">
-          <button class="collection__button collection--active">
+          <button class="collection__button ">
             <span>{{ value.name }}</span>
           </button>
         </li>
         <li class="collection__item" >
-          <button v-for="(value, index) in properties[0].values.slice(2, 4)" :key="index" class="collection__button collection--active">
+          <button v-for="(value, index) in properties[0].values.slice(2, 4)" :key="index" class="collection__button">
             <span>{{ value.name }}</span>
           </button>
         </li>
@@ -35,6 +33,7 @@ console.log(props)
   &__title{
     font-size: 24px;
     line-height: 24px;
+    white-space: nowrap;
   }
 
   &__list{

@@ -1,9 +1,15 @@
+<script setup>
+const props = defineProps({
+  properties: Object
+})
+</script>
+
 <template>
   <section class="section container">
     <div class="section__body">
       <div class="catalog-up">
         <BannersBannerCatalog></BannersBannerCatalog>
-        <CatalogTitle></CatalogTitle>
+        <CatalogTitle :properties="properties"></CatalogTitle>
       </div>
     </div>
   </section>

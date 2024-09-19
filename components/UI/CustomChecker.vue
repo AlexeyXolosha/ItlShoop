@@ -1,13 +1,19 @@
+<script setup>
+const props = defineProps({
+  value: Object
+})
+</script>
+
 <template>
   <label class="checkers__label">
     <input
       type="checkbox"
       class="checkbox__input visually-hidden"
-      value="Apple"
+      :value="value.id"
     />
     <span class="check__emulator"></span>
-    <p class="check__title">Google</p>
-    <span class="span-alt">8</span>
+    <p class="check__title">{{value.name}}</p>
+    <span class="span-alt"></span>
   </label>
 </template>
 

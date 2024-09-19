@@ -16,7 +16,7 @@ const stickerColors = {
 </script>
 
 <template>
-    <div class="card-product">
+    <a :href="product.links.self" class="card-product">
         <div class="card-product__sticker-list">
             <span  v-for="sticker in product.attributes.stikers" :key="sticker" :class="['card-product__sticker', stickerColors[sticker]]">{{ sticker }}</span>
         </div>
@@ -32,7 +32,7 @@ const stickerColors = {
                 <p>{{product.attributes?.name}}</p>
             </div>
             <div class="card-product__shop-count">
-                <p><span>{{ product.attributes.product.stores.count?.title }}</span> </p>
+                <p><span>{{ product?.attributes?.product?.stores?.count?.title }}</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
                 <span v-if="product.attributes.product.basePrice?.valueFormatted">{{product?.attributes?.product?.basePrice?.valueFormatted}}</span>
@@ -51,11 +51,14 @@ const stickerColors = {
                 </svg>
             </div>
         </div>
-    </div>
+    </a>
 </template>
 
 <style lang="scss" scoped>
     .card-product{
+        text-decoration: none;
+        color: #333;
+
         display: flex;
         flex-direction: column;
         justify-content: space-between;

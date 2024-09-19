@@ -1,17 +1,29 @@
+<script setup>
+const props = defineProps({
+  info: Object
+})
+
+const imageUpload = (url) => {
+    return url ? `${BASE_URL}${url}` : '';
+}
+</script>
+
 <template>
-  <div class="catalog-child">
+  <a :href="info.links.self" class="catalog-child">
     <div class="catalog-child__body">
-      <img src="../../public/iph.png" alt="iph" class="catalog-child__image" width="60" height="60">
+      <img :src="imageUpload(info.attributes.img)" alt="iph" class="catalog-child__image" width="60" height="60">
       <div class="catalog-child__info">
-        <p class="catalog-child__title heade-menu">Смартфоны</p>
-        <span class="catalog-child__count">781 товар</span>
+        <p class="catalog-child__title heade-menu">{{info.attributes.name}}</p>
+        <span class="catalog-child__count">{{ info.attributes.count }} Товаров</span>
       </div>
     </div>
-  </div>
+  </a>
 </template>
 
 <style lang="scss">
 .catalog-child{
+
+  text-decoration: none;
   &__body{
     display: flex;
     align-self: center;

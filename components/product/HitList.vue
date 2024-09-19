@@ -21,7 +21,7 @@ const fetchProduct = async (endpoint) => {
         const response = await $fetch(`${BASE_URL}${endpoint}`);
         return response;
     } catch (error) {
-        console.error('Ошибка при получении данных продукта:', error);
+        //console.error('Ошибка при получении данных продукта:', error);
         throw error;
     }
 }
@@ -33,7 +33,7 @@ watch(link, async (newLink, oldLink) => {
             hitProduct.value = await fetchProduct(newLink);
           //  console.log('Полученные данные продукта:', hitProduct.value);
         } catch (error) {
-            console.error('Ошибка при получении данных продукта:', error);
+          //  console.error('Ошибка при получении данных продукта:', error);
         }
     }
 });

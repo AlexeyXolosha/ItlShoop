@@ -1,19 +1,22 @@
+<script setup>
+const props = defineProps({
+  properties: Object
+});
+</script>
+
 <template>
       <div class="catalog-title">
           <div class="catalog-title__body">
               <div class="catalog-title__up">
-                  <p class="catalog-title__page">Главная / Каталог / Электроника / <span>Электроника</span></p>
-                  <div class="catalog-title__name">Телефоны и смарт-часы <span>— 113</span></div>
+                  <p class="catalog-title__page">Главная / Каталог / <span>{{ properties.data.attributes.name }}</span></p>
+                  <div class="catalog-title__name">{{properties.data.attributes.name }}<span> - {{properties.data.attributes.count}}</span></div>
               </div>
             <div class="catalog-title__down">
-              <UICatalogChild></UICatalogChild>
-              <UICatalogChild></UICatalogChild>
-              <UICatalogChild></UICatalogChild>
+              <UICatalogChild v-for="child in properties.included.sections" :key="child" :info="child"></UICatalogChild>
             </div>
         </div>
       </div>
 </template>
-
 <style lang="scss">
 .catalog-title{
 

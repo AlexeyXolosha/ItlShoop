@@ -1,6 +1,8 @@
 <script setup>
 import { fetchMenuCategories } from '~/utils/apiRequest';
 const {data: headeSale} = fetchMenuCategories()
+
+const emit = defineEmits(["open-modal"]);
 </script>
 
 
@@ -8,7 +10,7 @@ const {data: headeSale} = fetchMenuCategories()
     <header class="header">
         <div class="header__inner">
             <div class="header__logo">
-                <a href="#" class="header__logo-links">
+                <a href="/" class="header__logo-links">
                     <img src="../public/logo.svg" alt="ITL" class="logo__images" width="46" height="40" loading="lazy">
                 </a>    
                 <div class="header__logo-name">
@@ -17,11 +19,11 @@ const {data: headeSale} = fetchMenuCategories()
                 </div>
             </div>
 
-            <UIYellowButton>
+            <UIYellowButton @click="() => emit('open-modal')">
                     <template #icon>
                         <i class="fa-regular fa-bars"></i>
                     </template>
-                    Список желаемого
+                    Каталог товаров
             </UIYellowButton>
             <div class="header__search">
                 <input class="header__search-input" type="text" placeholder="Искать товар со скидками до 50% ">

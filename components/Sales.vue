@@ -15,7 +15,7 @@ const imageUpload = (url) => {
         </div>
         <div class="sale ">
             <div class="sale__banner">
-                <div v-for="sale in sales.data" :key="sale.id" class="sale__card">
+                <div v-for="sale in sales?.data" :key="sale.id" class="sale__card">
                 <div class="sale__content">
                         <img :src="imageUpload(sale.attributes.image)" alt="" class="sale__image" width="408" height="280">
                         <div class="sale__info">
