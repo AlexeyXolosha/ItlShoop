@@ -1,18 +1,41 @@
+<script setup>
+const today = new Date('September 21 2024 19:00:00')
+
+
+const hours = ref(0);
+const minutes = ref(0);
+const seconds = ref(0);
+
+const timeCount = () => {
+  const now = new Date();
+  const leftUntil = today - now
+
+  hours.value = Math.floor(leftUntil / 1000 / 60 / 60);
+  minutes.value = Math.floor(leftUntil / 1000 / 60) % 60;
+  seconds.value = Math.floor(leftUntil / 1000) % 60;
+}
+
+onMounted(() => {
+  timeCount();
+  setInterval(timeCount, 1000);
+});
+</script>
+
 <template>
   <div class="product-day">
     <div class="product-day__time">
       <h3>Товар дня</h3>
       <div class="product-day__content">
         <div class="product-day__time-count">
-          <div class="product-day__item">22</div>
+          <div class="product-day__item">{{hours}}</div>
         </div>
         <div class="product-day__separate">:</div>
         <div class="product-day__time-count">
-          <div class="product-day__item">37</div>
+          <div class="product-day__item">{{minutes}}</div>
         </div>
         <div class="product-day__separate">:</div>
         <div class="product-day__time-count">
-          <div class="product-day__item">52</div>
+          <div class="product-day__item">{{ seconds  }}</div>
         </div>
       </div>
     </div>

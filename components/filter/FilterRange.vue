@@ -1,3 +1,5 @@
+<script setup></script>
+
 <template>
     <div class="filter-range">
         <div class="filter-range__body">

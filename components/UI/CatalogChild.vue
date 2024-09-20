@@ -22,15 +22,15 @@ const imageUpload = (url) => {
 
 <style lang="scss">
 .catalog-child{
-
   text-decoration: none;
+  padding: 24px 28px;
+  border: 1px solid var(--color-blue-transparent);
+  border-radius: var(--border-radius-6px);
+  transition: 0.2s ease-in;
   &__body{
     display: flex;
     align-self: center;
     column-gap: 20px;
-    padding: 24px 28px;
-    border: 1px solid var(--color-blue-transparent);
-    border-radius: var(--border-radius-6px);
   }
 
   &__title{
@@ -41,5 +41,11 @@ const imageUpload = (url) => {
     font-size: 14px;
     color: var(--color-blac-80);
   }
+
+  &:hover{
+    transform: scale(1.1);
+    border-color: var(--color-blue);
+  }
+
 }
 </style>

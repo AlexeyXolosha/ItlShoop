@@ -1,5 +1,4 @@
 <script setup>
-import { ref, computed } from 'vue';
 
 const { data: modalCatalog, error } = fetchModalCatalog();
 
@@ -37,13 +36,19 @@ const buildCategoryTree = (categories) => {
   return tree;
 };
 
-// Функция для установки активной категории
+// Функция для установки активной категории при наведении
 const setActiveCategory = (category) => {
   activeParentCategory.value = category;
 };
 
+// Сброс активной категории при уходе с родительского элемента
+const resetActiveCategory = () => {
+  activeParentCategory.value = null;
+};
+
 defineEmits(['closeModal']);
 </script>
+
 
 <template>
   <div class="modal">
@@ -52,7 +57,7 @@ defineEmits(['closeModal']);
         <h2 class="modal__title">Каталог</h2>
         <i @click="$emit('closeModal')" class="fa-regular fa-xmark-circle"></i>
       </div>
-      <div class="modal__body">
+      <div class="modal__body" @mouseleave="resetActiveCategory">
         <div class="modal-catalog__parent">
           <!-- Список родительских категорий -->
           <ul v-if="categoryTree.length" class="modal-catalog__list">
@@ -60,9 +65,9 @@ defineEmits(['closeModal']);
               v-for="category in categoryTree"
               :key="category.id"
               class="modal-catalog__item"
-              @click="setActiveCategory(category)"
-            >
-              <a href="javascript:void(0)" class="modal-catalog__link">
+              @mouseover="setActiveCategory(category)"
+              >
+              <a :href="category.links.self" href="javascript:void(0)" class="modal-catalog__link">
                 {{ category.attributes.name }}
               </a>
               <i v-if="category.children.length" class="fa-regular fa-angle-right"></i>
@@ -70,7 +75,6 @@ defineEmits(['closeModal']);
           </ul>
           <p v-else>Загрузка данных...</p>
         </div>
-        <div class="modal-catalog__separate"></div>
         <div class="modal-catalog__children"  v-if="activeParentCategory">
           <h3>{{ activeParentCategory.attributes.name }} - Подкатегории</h3>
           <ul class="modal-catalog__list">
@@ -112,7 +116,6 @@ defineEmits(['closeModal']);
 
     &__body{
         display: flex;
-        align-items: center;
         column-gap: 24px;
     }
 
@@ -128,16 +131,11 @@ defineEmits(['closeModal']);
     }
 
     &-catalog{
-
         &__list{
           display: flex;
           flex-direction: column;
+          align-items: start;
           row-gap: 5px;
-        }
-
-        &__separate{
-          width: 2px;
-          background-color: #333;
         }
 
         &__item{

@@ -9,15 +9,15 @@ const emit = defineEmits(["open-modal"]);
 <template>
     <header class="header">
         <div class="header__inner">
-            <div class="header__logo">
-                <a href="/" class="header__logo-links">
+            <a href="/" class="header__logo">
+                <div class="header__logo-links">
                     <img src="../public/logo.svg" alt="ITL" class="logo__images" width="46" height="40" loading="lazy">
-                </a>    
+                </div>    
                 <div class="header__logo-name">
                     <span class="header__logo-title">itl.b2c</span>
                     <span>Готовый интернет-магазин</span>
                 </div>
-            </div>
+            </a>
 
             <UIYellowButton @click="() => emit('open-modal')">
                     <template #icon>
@@ -83,6 +83,8 @@ const emit = defineEmits(["open-modal"]);
             display: flex;
             align-items: center;
             column-gap: 16px;
+            text-decoration: none;
+            color: #333;
         }
 
         &__logo-name{

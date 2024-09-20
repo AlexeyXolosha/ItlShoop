@@ -1,39 +1,35 @@
-<template>
-    <div class="checkers__body">
-      <div 
-        class="checkers__check" 
-        v-for="(property, index) in properties" 
-        :key="index"
-      >
-        <div class="checkers__title">
-          <p>{{ property.name }}</p>
-          <i class="fa-regular fa-angle-up"></i>
-        </div>
-        <div class="checkers__list">
-          <UICustomChecker
-            v-for="(value, idx) in property.values"
-            :key="idx"
-            v-if="Array.isArray(property.values)" 
-            :value="value"
-          />
-        </div>
-        <div class="checkers__more">
-          <span>Показать еще</span>
-          <i class="fa-regular fa-angle-down"></i>
-        </div>
-      </div>
-    </div>
-  </template>
-  
 <script setup>
   const props = defineProps({
     properties: Array
   })
 
-  
-</script>
-  
+const openFilters = ref([]);
 
+const toggleFilter = (filterName) => {
+  openFilters.value[filterName] = !openFilters.value[filterName];
+};
+</script>
+
+<template>
+   <div class="checkers">
+      <div class="checkers__body">
+        <div class="checkers__check" v-for="(property, index) in properties.slice(1)" :key="index">
+          <div class="checkers__title">
+            <p>{{ property.name }}</p>            
+            <i class="fa-regular" :class="openFilters[property.name] ? 'fa-angle-up' : 'fa-angle-down'" @click="toggleFilter(property.name)"></i>
+          </div>
+          <div v-if="openFilters[property.name]" class="checkers__list">
+            <UICustomChecker v-for="(value, idx) in property.values" :key="idx" v-if="Array.isArray(property.values)" :value="value" />
+            <div class="checkers__more">
+              <span>Показать еще</span>
+              <i class="fa-regular fa-angle-down"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+   </div>
+  </template>
+    
 <style lang="scss">
 .checkers{
     &__body{

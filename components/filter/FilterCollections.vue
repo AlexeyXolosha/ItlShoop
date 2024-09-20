@@ -57,6 +57,11 @@ const props = defineProps({
     border-radius: var(--border-radius-6px);
     height: 32px;
     padding: 4px 20px;
+    transition: 0.2s;
+
+    &:hover{
+      background-color: var(--color-dark-yellow);
+    }
   }
 }
 

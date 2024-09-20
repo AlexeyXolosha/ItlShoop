@@ -2,7 +2,6 @@
 const route = useRoute();
 const category = ref(route.params.category);
 
-
 const { data: catalogProduct, error } = fetchProductCatalog(category.value);
 
 watch(() => route.params.category, (newCategory) => {
@@ -29,6 +28,14 @@ watch(itemsLink, async (newLink) => {
   }
 }, { immediate: true });
 
+const filterRangeProperties = computed(() => {
+  return catalogProduct.value?.included.filter.attributes.properties.filter(property => property.type === 'N');
+});
+
+const filterCheckersProperties = computed(() => {
+  return catalogProduct.value?.included.filter.attributes.properties.filter(property => property.type !== 'N');
+});
+
 watch(infoProduct, (newInfoProduct) => {
 // console.log("InfoProduct обновлен:", newInfoProduct);
 }, { immediate: true });
@@ -46,8 +53,9 @@ console.log("CatalogProduct", catalogProduct.value);
           <div class="catalog-filter">
             <div class="catalog-filter__body">
               <FilterCollections :properties="catalogProduct?.included.filter.attributes.properties"></FilterCollections>
-              <FilterRange></FilterRange>
-              <FilterCheckers :properties="catalogProduct?.included.filter.attributes.properties"></FilterCheckers>
+              <FilterRange :properties="filterRangeProperties"></FilterRange>
+              <FilterCheckers :properties="filterCheckersProperties"></FilterCheckers>
+
             </div>
           </div>
           <div class="catalog-product">
@@ -88,7 +96,11 @@ console.log("CatalogProduct", catalogProduct.value);
   </section>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
+.section{
+  padding-top: 0;
+}
+
 .catalog{
     &__inner{
         display: flex;
@@ -151,6 +163,7 @@ console.log("CatalogProduct", catalogProduct.value);
     height: 44px;
     text-align: center;
     padding: 10px 70px;
+    width: 100%;
     max-width: 552px;
     border: 1px solid var(--color-blue-transparent);
     background-color: var(--color-white);
