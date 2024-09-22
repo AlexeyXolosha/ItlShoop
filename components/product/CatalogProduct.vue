@@ -1,47 +1,38 @@
 <script setup>
+import { useProductFilter } from '~/store/catalog/filter';
+
+// Получаем маршрут и инициализируем категорию
 const route = useRoute();
 const category = ref(route.params.category);
 
+// Получаем данные каталога с использованием значения из `category.value`
 const { data: catalogProduct, error } = fetchProductCatalog(category.value);
 
+const productStore = useProductFilter()
+
+// Слушаем изменения маршрута и обновляем категорию
 watch(() => route.params.category, (newCategory) => {
-  category.value = newCategory;
-  fetchProductCatalog(newCategory);
-}, { immediate: true });
-
-const itemsLink = computed(() => {
-  if (catalogProduct.value && catalogProduct.value.data && catalogProduct.value.data.relationships) {
-    return catalogProduct.value.data.relationships.items.links.self;
-  }
-  return null; 
-});
-
-const infoProduct = ref(null);
-
-watch(itemsLink, async (newLink) => {
-  if (newLink) {
-    try {
-      infoProduct.value = await fetchProduct(newLink);
-    } catch (err) {
-      console.error("Ошибка при загрузке информации о продукте:", err);
-    }
+  if (newCategory) {
+    category.value = newCategory;
+    productStore.fetchInfo(newCategory);  // Обновляем продукты при изменении категории
+  } else {
+    console.error("Категория не определена.");
   }
 }, { immediate: true });
 
-const filterRangeProperties = computed(() => {
-  return catalogProduct.value?.included.filter.attributes.properties.filter(property => property.type === 'N');
-});
+const updateSelectedFilter = filter => {
+  // Логируем данные фильтра для проверки
+  console.log("Получены данные фильтра:", filter);
 
-const filterCheckersProperties = computed(() => {
-  return catalogProduct.value?.included.filter.attributes.properties.filter(property => property.type !== 'N');
-});
+  productStore.updateFilters(filter);
 
-watch(infoProduct, (newInfoProduct) => {
-// console.log("InfoProduct обновлен:", newInfoProduct);
-}, { immediate: true });
+  if (category.value) {
+    productStore.fetchInfo(category.value);  
+  } else {
+    console.error("Категория не определена.");
+  }
+}
 
-//console.log(itemsLink.value);
-console.log("CatalogProduct", catalogProduct.value);
 </script>
 
 <template>
@@ -52,10 +43,7 @@ console.log("CatalogProduct", catalogProduct.value);
         <div class="catalog__inner">
           <div class="catalog-filter">
             <div class="catalog-filter__body">
-              <FilterCollections :properties="catalogProduct?.included.filter.attributes.properties"></FilterCollections>
-              <FilterRange :properties="filterRangeProperties"></FilterRange>
-              <FilterCheckers :properties="filterCheckersProperties"></FilterCheckers>
-
+              <FilterCollections :properties="productStore.filterCheckersProperties" @update:selectedFilter="updateSelectedFilter"></FilterCollections>
             </div>
           </div>
           <div class="catalog-product">
@@ -66,7 +54,7 @@ console.log("CatalogProduct", catalogProduct.value);
                 </select>
               </div>
               <div class="catalog-product__list">
-                <UICardItem v-for="item in catalogProduct?.included?.items" :key="item.id" :product="item"></UICardItem>
+                <UICardItem v-for="item in productStore.products" :key="item.id" :product="item"></UICardItem>
               </div>
             </div>
             <div class="catalog-product__footer">
@@ -76,18 +64,8 @@ console.log("CatalogProduct", catalogProduct.value);
               </div>
             </div>
             <div class="catalog-product__info-block">
-              <h3 class="catalog-product__name">Дрели-шуруповерты</h3>
-              <p class="catalog-product__description">
-                Шуруповерт и дрель-шуруповерт - в чем разница. <br> <br>
-                Выбирая между покупкой шуруповерта и дрели-шуруповерта, необходимо знать, что первый тип электроинструмента рассчитан 
-                на задачи по вкручиванию/выкручиванию метизов. Использовать его для высверливания отверстий не стоит, поскольку конструкция не 
-                приспособлена к сверлению - прокрутка патрона при изменении плотности материала станет препятствием дальнейшей работе.
-                <br>
-                <br>
-                Дрель-шуруповерт сверлит, закручивает и выкручивает крепежи. Гибкая настройка скорости вращения помогает лучше адаптировать инструмент к рабочим задачам,
-                 но инерционность патронной части иногда приводит к чрезмерному заглублению самореза. 
-                В Леруа Мерлен можно заказать шуруповерт с аккумуляторным или кабельным типом питания. Предлагаем товары торговых марок Bosch, Dexter, Makita, Metabo.
-              </p>
+              <h3 class="catalog-product__name">{{ catalogProduct.data.attributes.name }}</h3>
+              <div class="catalog-product__description" v-html="catalogProduct.data.attributes.description"></div>
             </div>
           </div>
         </div>

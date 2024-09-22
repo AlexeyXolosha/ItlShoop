@@ -9,5 +9,5 @@ export const fetchBannerCatalog = () => {
 }
 
 export const fetchProductCatalog = (paramUrl) => {
-  return fetchDataApi('catalogProductFilter', `/catalog/${paramUrl}/?include=items,filter,reviews-statistics,sections`)
+  return fetchDataApi('catalogProductFilter', paramUrl)
 }

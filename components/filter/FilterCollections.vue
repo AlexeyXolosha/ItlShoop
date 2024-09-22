@@ -1,21 +1,37 @@
 <script setup>
 const props = defineProps({
   properties: Array
-})
+});
+
+const emit = defineEmits(['update:selectedFilter']);
+
+// Функция для обработки кликов по фильтру
+const handleFilterClick = (filter) => {
+ // console.log("Фильтр выбран:", filter);
+  emit('update:selectedFilter', { id: filter.id, value: filter.value });
+};
 </script>
 
 <template>
   <div class="catalog-filter__collections">
     <div class="collection">
-      <div class="collection__title">{{properties[0].name}}</div>
+      <div class="collection__title">{{ properties[0].name }}</div>
       <ul class="collection__list">
         <li class="collection__item" v-for="(value, index) in properties[0].values.slice(0, 2)" :key="index">
-          <button class="collection__button ">
+          <button 
+            class="collection__button"
+            @click="handleFilterClick(value)"
+          >
             <span>{{ value.name }}</span>
           </button>
         </li>
-        <li class="collection__item" >
-          <button v-for="(value, index) in properties[0].values.slice(2, 4)" :key="index" class="collection__button">
+        <li class="collection__item">
+          <button 
+            v-for="(value, index) in properties[0].values.slice(2, 4)" 
+            :key="index" 
+            class="collection__button"
+            @click="handleFilterClick(value)"
+          >
             <span>{{ value.name }}</span>
           </button>
         </li>
@@ -63,10 +79,9 @@ const props = defineProps({
       background-color: var(--color-dark-yellow);
     }
   }
-}
 
-.collection--active{
-  background-color: var(--color-yellow-active);
+  &--active{
+    background-color: var(--color-dark-yellow); // Активный стиль кнопки
+  }
 }
-
 </style>
