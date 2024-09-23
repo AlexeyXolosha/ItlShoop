@@ -166,7 +166,7 @@ svg * {
 @font-face {
   font-family: "Circe";
   src: url("../../public/fonts/Circe-Bold.woff2") format("woff2");
-  font-weight: 600;
+  font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
@@ -202,6 +202,22 @@ body {
 .heade-menu {
   font-size: 18px;
   line-height: 32px;
+}
+
+.sticker-bg--green {
+  background-color: var(--color-green);
+}
+
+.sticker-bg--red {
+  background-color: var(--color-red);
+}
+
+.sticker-bg--strawberry {
+  background-color: var(--color-strawberry);
+}
+
+.sticker-bg--blue {
+  background-color: var(--color-blue);
 }
 
 :root {
@@ -271,4 +287,93 @@ body {
   justify-content: space-between;
   -moz-column-gap: 24px;
        column-gap: 24px;
+}
+
+.product__head-middle {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 20px;
+       column-gap: 20px;
+}
+.product__head-title {
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 40px;
+}
+.product__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  row-gap: 16px;
+}
+.product__stiker {
+  border-radius: var(--border-radius-6px);
+  margin-right: 8px;
+  font-size: 14px;
+  padding: 1px 16px;
+  color: var(--color-white);
+}
+.product__number {
+  color: var(--color-blac-80);
+}
+.product__number span {
+  color: #333;
+}
+.product__detail {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 36px;
+       column-gap: 36px;
+  font-size: 14px;
+}
+.product__rating svg {
+  color: var(--color-dark-yellow);
+  margin-right: 12px;
+}
+.product__button {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 16px;
+       column-gap: 16px;
+}
+.product__button i {
+  color: var(--color-blue);
+  margin-right: 12px;
+}
+.product__button svg {
+  color: var(--color-blue);
+  margin-right: 12px;
+}
+.product__button button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.product__favorite {
+  display: flex;
+  -moz-column-gap: 12px;
+       column-gap: 12px;
+}
+.product-title__list {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+.product-title__item {
+  margin-bottom: 20px;
+}
+.product-title__item span {
+  margin-right: 5px;
+}
+.product-title__link {
+  text-decoration: none;
+  color: #333;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.product-title__link span {
+  margin-right: 5px;
+}
+.product-title__link:hover {
+  color: var(--color-blue);
 }/*# sourceMappingURL=styles.css.map */

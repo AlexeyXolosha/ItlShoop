@@ -1,4 +1,4 @@
 <template>
-  <ProductCatalogProduct></ProductCatalogProduct>
+  <ProductListCatalogProduct></ProductListCatalogProduct>
   <Watchs></Watchs>
 </template>

@@ -67,6 +67,7 @@ const stickerColors = {
         border-radius: var(--border-radius-6px);
         min-height: 496px;
         padding: 32px 29px 36px 32px;
+        transition: 0.2s ease-in;
 
 
         &__image{
@@ -161,9 +162,7 @@ const stickerColors = {
         &__image{
             object-fit: contain;
         }
-
-        transition: 0.2s ease-in;
-
+        
         &:hover{
             border-color: var(--color-blue);
         }

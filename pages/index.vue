@@ -1,13 +1,13 @@
 <template>
         <BannerSlide></BannerSlide>
-        <ProductHitList>Хиты продаж</ProductHitList>
+        <ProductListHitList>Хиты продаж</ProductListHitList>
         <CategoryList>Популярные категории</CategoryList>
         <BannersList></BannersList>
         <Brand>Популярные бренды</Brand>
-        <ProductSaleProductList>Распродажа</ProductSaleProductList>
+        <ProductListSaleProductList>Распродажа</ProductListSaleProductList>
         <BannersBanner></BannersBanner>
         <Sales>Акции</Sales>
-        <ProductRecommendedList>Рекомендуем</ProductRecommendedList>
+        <ProductListRecommendedList>Рекомендуем</ProductListRecommendedList>
         <Blogs></Blogs>
         <Company></Company>
         <Watchs></Watchs>
