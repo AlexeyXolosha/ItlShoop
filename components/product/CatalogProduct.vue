@@ -1,38 +1,27 @@
 <script setup>
 import { useProductFilter } from '~/store/catalog/filter';
 
-// Получаем маршрут и инициализируем категорию
 const route = useRoute();
 const category = ref(route.params.category);
 
-// Получаем данные каталога с использованием значения из `category.value`
 const { data: catalogProduct, error } = fetchProductCatalog(category.value);
 
 const productStore = useProductFilter()
 
-// Слушаем изменения маршрута и обновляем категорию
 watch(() => route.params.category, (newCategory) => {
   if (newCategory) {
     category.value = newCategory;
-    productStore.fetchInfo(newCategory);  // Обновляем продукты при изменении категории
+    productStore.currentCategory = newCategory
+    productStore.fetchInfo(newCategory);
   } else {
     console.error("Категория не определена.");
   }
 }, { immediate: true });
 
 const updateSelectedFilter = filter => {
-  // Логируем данные фильтра для проверки
   console.log("Получены данные фильтра:", filter);
-
   productStore.updateFilters(filter);
-
-  if (category.value) {
-    productStore.fetchInfo(category.value);  
-  } else {
-    console.error("Категория не определена.");
-  }
 }
-
 </script>
 
 <template>
@@ -44,6 +33,7 @@ const updateSelectedFilter = filter => {
           <div class="catalog-filter">
             <div class="catalog-filter__body">
               <FilterCollections :properties="productStore.filterCheckersProperties" @update:selectedFilter="updateSelectedFilter"></FilterCollections>
+              <FilterCheckers :properties="productStore.filterCheckersProperties"  @update:selectedFilter="updateSelectedFilter"></FilterCheckers>
             </div>
           </div>
           <div class="catalog-product">

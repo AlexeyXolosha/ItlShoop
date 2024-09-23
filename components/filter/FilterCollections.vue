@@ -5,7 +5,6 @@ const props = defineProps({
 
 const emit = defineEmits(['update:selectedFilter']);
 
-// Функция для обработки кликов по фильтру
 const handleFilterClick = (filter) => {
  // console.log("Фильтр выбран:", filter);
   emit('update:selectedFilter', { id: filter.id, value: filter.value });

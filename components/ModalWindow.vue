@@ -2,10 +2,8 @@
 
 const { data: modalCatalog, error } = fetchModalCatalog();
 
-// Состояние для активной категории
 const activeParentCategory = ref(null);
 
-// Проверяем, что данные успешно загружены
 const categoryTree = computed(() => {
   if (!modalCatalog?.value || error?.value) {
     return [];
@@ -14,7 +12,6 @@ const categoryTree = computed(() => {
   return buildCategoryTree(modalCatalog.value.data);
 });
 
-// Функция для построения дерева категорий
 const buildCategoryTree = (categories) => {
   const map = {};
   const tree = [];
@@ -36,12 +33,10 @@ const buildCategoryTree = (categories) => {
   return tree;
 };
 
-// Функция для установки активной категории при наведении
 const setActiveCategory = (category) => {
   activeParentCategory.value = category;
 };
 
-// Сброс активной категории при уходе с родительского элемента
 const resetActiveCategory = () => {
   activeParentCategory.value = null;
 };
@@ -67,7 +62,7 @@ defineEmits(['closeModal']);
               class="modal-catalog__item"
               @mouseover="setActiveCategory(category)"
               >
-              <a :href="category.links.self" href="javascript:void(0)" class="modal-catalog__link">
+              <a :href="category.links.self" class="modal-catalog__link">
                 {{ category.attributes.name }}
               </a>
               <i v-if="category.children.length" class="fa-regular fa-angle-right"></i>

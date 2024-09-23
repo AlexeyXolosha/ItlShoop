@@ -3,10 +3,16 @@
     properties: Array
   })
 
-const openFilters = ref([]);
 
-const toggleFilter = (filterName) => {
-  openFilters.value[filterName] = !openFilters.value[filterName];
+  const openFilters = ref([]);
+  const toggleFilter = (filterName) => {
+    openFilters.value[filterName] = !openFilters.value[filterName];
+  };
+
+const emit = defineEmits(['update:selectedFilter']);
+const handleFilterClick = (filter) => {
+ // console.log("Фильтр выбран:", filter);
+  emit('update:selectedFilter', { id: filter.id, value: filter.value });
 };
 </script>
 
@@ -19,7 +25,7 @@ const toggleFilter = (filterName) => {
             <i class="fa-regular" :class="openFilters[property.name] ? 'fa-angle-up' : 'fa-angle-down'" @click="toggleFilter(property.name)"></i>
           </div>
           <div v-if="openFilters[property.name]" class="checkers__list">
-            <UICustomChecker v-for="(value, idx) in property.values" :key="idx" v-if="Array.isArray(property.values)" :value="value" />
+              <UICustomChecker v-for="(value, idx) in property.values" :key="idx" v-if="Array.isArray(property.values)" :value="value" @change="handleFilterClick(value)"/>
             <div class="checkers__more">
               <span>Показать еще</span>
               <i class="fa-regular fa-angle-down"></i>

@@ -6,39 +6,30 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   const selectedFilterCollections = ref([]);
   const currentCategory = ref(null);
 
-  const fetchInfo = async (categoryValue) => {
+  const fetchInfo = async () => {
 
-    if (!categoryValue) {
+    if (!currentCategory) {
       console.error("Категория не определена.");
       return;
     }
-
-
-    let paramUrl = `/catalog/${categoryValue}/?include=items,filter,reviews-statistics,sections`;
+    let paramUrl = `/catalog/${currentCategory.value}/?include=items,filter,reviews-statistics,sections`;
 
     if (selectedFilterCollections.value.length > 0) {
       const filterParams = selectedFilterCollections.value.map(filter => {
         return `${filter.id}=${filter.value}`;
       }).join('&');
       
-      // Добавляем фильтры в конец запроса
       paramUrl += `&set_filter=Y&${filterParams}`;
     }
 
-     console.log("Запрос к API с URL:", paramUrl);
+    console.log("Запрос к API с URL:", paramUrl);
 
-
-    //Данные
-    const { data, error } = await fetchProductCatalog(paramUrl);
-
-
+    const { data } = await fetchProductCatalog(paramUrl);
    // console.log("Полученные данные:", data);
 
-    // Если данные есть, обновляем продукты
     products.value = data.value?.included?.items || [];
     filters.value = data.value?.included?.filter?.attributes?.properties || [];
     
-    // Логируем продукты для проверки
    // console.log("Текущие продукты:", products.value);
   };
 
@@ -50,19 +41,14 @@ export const useProductFilter = defineStore('ProductFilter', () => {
     return filters.value.filter(property => ['S', 'L', 'E'].includes(property.type));
   });
 
-
-  const updateFilters = (filter, category) => {
+  const updateFilters = (filter) => {
     const index = selectedFilterCollections.value.findIndex(f => f.id === filter.id);
     if (index !== -1) {
-      // Если фильтр уже выбран, удаляем его
       selectedFilterCollections.value.splice(index, 1);
     } else {
-      // Если фильтр не выбран, добавляем его
       selectedFilterCollections.value.push(filter);
     }
-
-      //  console.log("Обновленные выбранные фильтры:", selectedFilterCollections.value);
-    fetchInfo(category);
+    fetchInfo();
   };
 
   // Отслеживание изменений в selectedFilterCollections
