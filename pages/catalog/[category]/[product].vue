@@ -10,6 +10,7 @@ console.log(productInfo.value)
 
 <template>
    <div class="product">
-    <ProductHead :props="productInfo"></ProductHead>  
+    <ProductHead :props="productInfo"></ProductHead>
+    <ProductInfo></ProductInfo>
     </div>
 </template>

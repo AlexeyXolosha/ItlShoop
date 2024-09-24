@@ -25,15 +25,18 @@ const updateSelectedFilter = filter => {
 </script>
 
 <template>
-  <BannerTitle :properties="catalogProduct"></BannerTitle>
+    <BannerTitle :properties="catalogProduct"></BannerTitle>
   <section class="section container">
     <div class="section__body">
       <div class="catalog">
         <div class="catalog__inner">
           <div class="catalog-filter">
+
             <div class="catalog-filter__body">
               <FilterCollections :properties="productStore.filterCheckersProperties" @update:selectedFilter="updateSelectedFilter"></FilterCollections>
+              <FilterRange :filter="productStore.price" @update:priceRange="productStore.updatePriceRange"></FilterRange>
               <FilterCheckers :properties="productStore.filterCheckersProperties"  @update:selectedFilter="updateSelectedFilter"></FilterCheckers>
+              <FilterRange v-for="range in productStore.filterRangeProp" :filter="range" @update:valueRange="productStore.updateValueRange"></FilterRange>
             </div>
           </div>
           <div class="catalog-product">

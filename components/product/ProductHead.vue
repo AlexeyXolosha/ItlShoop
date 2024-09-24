@@ -43,7 +43,6 @@ const imageUpload = (url) => {
                             </div>
                         </div>
                     </div>
-
                     <div class="product__detail">
 
                         <div class="product__rating">
