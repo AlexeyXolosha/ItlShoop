@@ -19,7 +19,7 @@ watch(() => route.params.category, (newCategory) => {
 }, { immediate: true });
 
 const updateSelectedFilter = filter => {
-  console.log("Получены данные фильтра:", filter);
+//  console.log("Получены данные фильтра:", filter);
   productStore.updateFilters(filter);
 }
 </script>
@@ -31,7 +31,6 @@ const updateSelectedFilter = filter => {
       <div class="catalog">
         <div class="catalog__inner">
           <div class="catalog-filter">
-
             <div class="catalog-filter__body">
               <FilterCollections :properties="productStore.filterCheckersProperties" @update:selectedFilter="updateSelectedFilter"></FilterCollections>
               <FilterRange :filter="productStore.price" @update:priceRange="productStore.updatePriceRange"></FilterRange>
@@ -57,8 +56,8 @@ const updateSelectedFilter = filter => {
               </div>
             </div>
             <div class="catalog-product__info-block">
-              <h3 class="catalog-product__name">{{ catalogProduct.data.attributes.name }}</h3>
-              <div class="catalog-product__description" v-html="catalogProduct.data.attributes.description"></div>
+              <h3 class="catalog-product__name">{{ catalogProduct.data?.attributes?.name }}</h3>
+              <div class="catalog-product__description" v-html="catalogProduct.data?.attributes?.description"></div>
             </div>
           </div>
         </div>

@@ -9,8 +9,16 @@ console.log(productInfo.value)
 </script>
 
 <template>
-   <div class="product">
-    <ProductHead :props="productInfo"></ProductHead>
-    <ProductInfo></ProductInfo>
-    </div>
+      <ProductHead :props="productInfo"></ProductHead> 
+     <section class="section container">
+          <ProductInfo :props="productInfo"></ProductInfo>
+          <ProductCart></ProductCart>
+     </section>
 </template>
+
+<style lang="scss" scoped>
+.container{
+     display: flex;
+     justify-content: space-between;
+}
+</style>

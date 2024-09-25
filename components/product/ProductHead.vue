@@ -21,7 +21,6 @@ const imageUpload = (url) => {
             <div class="product__head">
                 <div class="product__inner">
                     <div class="product__title">
-
                         <ul class="product-title__list">
                             <li class="product-title__item" v-for="(item, index) in props.props?.meta?.breadcrumb"
                                 :key="index">
@@ -43,8 +42,8 @@ const imageUpload = (url) => {
                             </div>
                         </div>
                     </div>
+                    
                     <div class="product__detail">
-
                         <div class="product__rating">
                             <svg width="14" height="14" viewBox="0 0 13 12" fill="none"
                                 xmlns="http://www.w3.org/2000/svg">
@@ -54,7 +53,6 @@ const imageUpload = (url) => {
                             </svg>
                             <span>4,8</span>
                         </div>
-
                         <div class="product__code-proudct">
                             <p class="product__number">Код товара: <span>1210618</span></p>
                         </div>

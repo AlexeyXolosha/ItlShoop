@@ -10,19 +10,26 @@ const maxSelected = ref(props.filter.max || props.filter.values?.max.value);
 const emit = defineEmits(['update:priceRange', 'update:valueRange']);
 
 const updatePriceRange = () => {
-  emit('update:priceRange', { min: minSelected.value, max: maxSelected.value });
+  if (minSelected.value === props.filter.min && maxSelected.value === props.filter.max) {
+    emit('update:priceRange', null); // Можно передать null, чтобы сигнализировать о сбросе
+  } else {
+    emit('update:priceRange', { min: minSelected.value, max: maxSelected.value });
+  }
 };
 
 
 const updateValueRange = () => {
-  const minId = props.filter.values?.min.id; // Получаем id для min
-  const maxId = props.filter.values?.max.id; // Получаем id для max
+  const minId = props.filter.values?.min.id;
+  const maxId = props.filter.values?.max.id;
 
   const min = Number(minSelected.value);
   const max = Number(maxSelected.value);
 
-
-  emit('update:valueRange', { minId, maxId, min, max });
+  if (min === props.filter.values?.min.value && max === props.filter.values?.max.value) {
+    emit('update:valueRange', null); // Передаем null для сброса
+  } else {
+    emit('update:valueRange', { minId, maxId, min, max });
+  }
 };
 
 watch(() => props.price, (newPrice) => {

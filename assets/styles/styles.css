@@ -376,4 +376,117 @@ body {
 }
 .product-title__link:hover {
   color: var(--color-blue);
+}
+
+.info-block {
+  width: 100%;
+}
+.info-block__wrapper {
+  display: flex;
+  justify-content: space-between;
+  max-width: 1200px;
+  width: 100%;
+}
+.info-block__slider {
+  display: flex;
+  align-items: center;
+  gap: 68px;
+}
+.info-block__list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+}
+.info-block__item {
+  width: 76px;
+  height: 76px;
+  padding: 8px;
+}
+.info-block__image {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+.info-block__swiper-main {
+  max-width: 552px;
+}
+.info-block__details {
+  max-width: 408px;
+  width: 100%;
+}
+.info-block__character {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 4px;
+  align-items: center;
+  position: relative;
+}
+.info-block__character::after {
+  content: "";
+  position: absolute;
+  height: 1px;
+  width: 100%;
+  z-index: 1;
+  bottom: 8px;
+  border-bottom: 1px dashed var(--color-blac-80);
+}
+.info-block__character p {
+  color: var(--color-black-70);
+  max-width: 220px;
+  overflow: hidden;
+  line-height: 28px !important;
+  z-index: 2;
+  background-color: var(--color-white);
+}
+
+.swiper-main__slide {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide__image {
+  width: 90%;
+  height: 90%;
+  -o-object-fit: contain;
+     object-fit: contain;
+  -o-object-position: center center;
+     object-position: center center;
+}
+
+.cart {
+  min-width: 408px;
+  margin-left: 24px;
+}
+.cart__wrapper {
+  display: flex;
+  flex-direction: column;
+  row-gap: 12px;
+}
+.cart__personal {
+  display: flex;
+  align-items: center;
+  -moz-column-gap: 16px;
+       column-gap: 16px;
+  padding: 20px 32px;
+  border: 1px solid var(--color-blue-transparent);
+  border-radius: var(--border-radius-6px);
+}
+.cart__personal svg {
+  color: var(--color-blue);
+}
+.cart__info {
+  max-width: 308px;
+}
+.cart__body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 24px;
+  padding: 36px 32px;
+  border-radius: var(--border-radius-6px) var(--border-radius-6px) 0 0;
+  background-color: var(--color-blue-transparent-card);
 }/*# sourceMappingURL=styles.css.map */

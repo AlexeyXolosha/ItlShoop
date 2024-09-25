@@ -92,30 +92,25 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   };
 
   const updatePriceRange = (priceRange) => {
-    RangeValuesPrice.value = priceRange;
+    if (priceRange === null) {
+      RangeValuesPrice.value = { min: 0, max: 0 }; 
+    } else {
+      RangeValuesPrice.value = priceRange;
+    }
     fetchInfo();
   };
 
   const updateValueRange = (valueRange) => {
-    const { minId, maxId, min, max } = valueRange;
-
-    if (minId && maxId && min !== undefined && max !== undefined) {
-      range.value[minId] = { minId, maxId, min, max }; 
+    if (valueRange === null) {
+      range.value = {};
+    } else {
+      const { minId, maxId, min, max } = valueRange;
+      if (minId && maxId && min !== undefined && max !== undefined) {
+        range.value[minId] = { minId, maxId, min, max };
+      }
     }
-
-   // console.log("Что приходит в range:", range.value);
     fetchInfo();
   };
-
-  // Отслеживание изменений в selectedFilterCollections
-  // watch(selectedFilterCollections, (newVal) => {
-  //   console.log("Изменение selectedFilterCollections:", newVal);
-  // });
-
-  // // Отслеживание изменений в filterParams
-  // watch(() => selectedFilterCollections.value.map(filter => `${filter.id}=${filter.value}`).join('&'), (newFilterParams) => {
-  //   console.log("Изменение параметров фильтрации (filterParams):", newFilterParams);
-  // });
 
   return {
  products,
