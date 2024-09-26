@@ -1,10 +1,14 @@
 .cart{
     min-width: 408px;
     margin-left: 24px;
+
+    svg{
+        color: var(--color-blue);
+    }
+
     &__wrapper{
         display: flex;
         flex-direction: column;
-        row-gap: 12px;
     }
 
     &__personal{
@@ -15,13 +19,38 @@
         border: 1px solid var(--color-blue-transparent);
         border-radius: var(--border-radius-6px);
 
-        svg{
-            color: var(--color-blue);
-        }
+        margin-bottom: 12px;
     }
 
-    &__info{
+    &__personal-title{
         max-width: 308px;
+    }
+
+
+    &__currentPrice{
+        margin-bottom: 4px;
+    }
+
+    &__attr{
+        color: var(--color-blac-80);
+        max-width: 324px;
+        font-size: 12px;
+    }
+
+    &__button-alt{
+        max-width: 380px;
+        width: 100%;
+        border: 1px solid var(--color-blue-transparent);
+        border-radius: var(--border-radius-6px);
+        background-color: transparent;
+        padding: 8px 20px;
+        cursor: pointer;
+        height: 52px;
+        transition: 0.2s;
+
+        &:hover{
+            background-color: var(--color-blue-transparent);
+        }
     }
 
     &__body{
@@ -34,8 +63,43 @@
         background-color: var(--color-blue-transparent-card);
     }
 
+    &__sale{
+        display: flex;
+        align-items: center;
+        column-gap: 24px;
 
- 
+        border-top: 1px solid var(--color-blue-transparent);
+        border-radius: 0 0 var(--border-radius-6px) var(--border-radius-6px);
+        background-color: var(--color-blue-transparent-card);
+        padding: 20px 32px 24px;
+
+        margin-bottom: 12px;
+
+        &-info{
+            span{
+                font-size: 14px;
+                line-height: 24px;
+                color: var(--color-blac-80);
+            }
+        }
+    }
+
+    &__footer{
+        border-radius: var(--border-radius-6px);
+        background-color: var(--color-blue-transparent-card);
+        padding: 20px 32px;
+
+        &-info{
+            display: flex;
+            column-gap: 16px;
+            margin-bottom: 16px;
+
+            &:last-child{
+                margin-bottom: 0;
+            }
+        }
+    }
+
 
   
 }

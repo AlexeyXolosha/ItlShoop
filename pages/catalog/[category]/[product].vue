@@ -5,20 +5,15 @@ const product = ref(route.params.product)
 
 const { data: productInfo } = fetchInfoProduct(category.value, product.value)
 
-console.log(productInfo.value)
+
+const { data: productExp} =  fetchProductExpandables(category.value, product.value)
 </script>
 
 <template>
-      <ProductHead :props="productInfo"></ProductHead> 
-     <section class="section container">
-          <ProductInfo :props="productInfo"></ProductInfo>
-          <ProductCart></ProductCart>
-     </section>
+     <ProductHead :props="productInfo"></ProductHead> 
+     <ProductInfo :props="productInfo"></ProductInfo>
+     <ProductExpandables :exp="productExp">С этим товаром покупают</ProductExpandables>
+     <Blogs></Blogs>
+     <Watchs></Watchs>
 </template>
 
-<style lang="scss" scoped>
-.container{
-     display: flex;
-     justify-content: space-between;
-}
-</style>

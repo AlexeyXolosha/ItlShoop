@@ -11,7 +11,7 @@ const SaleProduct = ref(null);
 
 const linkItem = (selectedLink) => {
     link.value = selectedLink;
-    console.log(link.value)
+  //  console.log(link.value)
 }
 
 const fetchProduct = async (endpoint) => {

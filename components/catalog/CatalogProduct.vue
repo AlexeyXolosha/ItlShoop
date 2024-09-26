@@ -19,7 +19,7 @@ watch(() => route.params.category, (newCategory) => {
 }, { immediate: true });
 
 const updateSelectedFilter = filter => {
-//  console.log("Получены данные фильтра:", filter);
+  console.log("Получены данные фильтра:", filter);
   productStore.updateFilters(filter);
 }
 </script>

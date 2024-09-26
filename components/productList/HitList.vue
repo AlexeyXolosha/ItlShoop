@@ -31,7 +31,7 @@ watch(link, async (newLink, oldLink) => {
     if (newLink) {
         try {
             hitProduct.value = await fetchProduct(newLink);
-          //  console.log('Полученные данные продукта:', hitProduct.value);
+           console.log('Полученные данные продукта:', hitProduct.value);
         } catch (error) {
           //  console.error('Ошибка при получении данных продукта:', error);
         }

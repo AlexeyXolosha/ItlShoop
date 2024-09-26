@@ -63,7 +63,14 @@ const emit = defineEmits(["open-modal"]);
 </template>
 
 
-<style lang="scss" >
+<style lang="scss" scoped>
+.yellowButton{
+    max-width: 181px;
+    width: 100%;
+}
+</style>
+
+<style lang="scss">
     .header{
         display: flex;
         flex-direction: column;

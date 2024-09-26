@@ -1,4 +1,15 @@
 .product{
+
+    &__wrapper{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__image{
+        object-fit: contain;
+    }
+
     &__head{
         &-middle{
             display: flex;

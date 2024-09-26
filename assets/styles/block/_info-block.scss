@@ -6,6 +6,7 @@
         justify-content: space-between;
         max-width: 1200px;
         width: 100%;
+        margin-bottom: 72px;
     }
 
     &__slider{
@@ -47,6 +48,7 @@
         margin-bottom: 4px;
         align-items: center;
         position: relative;
+        white-space: nowrap;
         &::after{
             content: "";
             position: absolute;
@@ -69,18 +71,3 @@
 
 }
 
-
-.swiper-main__slide{
-    height: 100%;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.slide__image{
-    width: 90%;
-    height: 90%;
-    object-fit: contain;
-    object-position: center center;
-}
