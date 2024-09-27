@@ -9,8 +9,6 @@ import 'swiper/css/navigation';
 const props = defineProps({
     exp: Object
 })
-
-console.log(props.exp.data)
 </script>
 
 <template>

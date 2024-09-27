@@ -3,11 +3,17 @@ const props = defineProps({
     tabs: Object
 })
 
+
 const activeTab = ref(0);
 
 const setActiveTab = (index) => {
-    activeTab.value = index
+    activeTab.value = index;
 }
+
+// Преобразуем объект вкладок в массив
+const tabsArray = computed(() => {
+    return Object.values(props.tabs.attributes.tabs);
+});
 </script>
 
 <template>
@@ -24,7 +30,8 @@ const setActiveTab = (index) => {
                     <li :class="['menu__item', { 'menu__item--active': activeTab === 2 }]" @click="setActiveTab(2)">
                         <span>Наличие в магазинах</span>
                     </li>
-                    <li v-for="(tab, index) in props.tabs.attributes.tabs" :key="index"
+
+                    <li v-for="(tab, index) in tabsArray" :key="index"
                         :class="['menu__item', { 'menu__item--active': activeTab === (index + 3) }]"
                         @click="setActiveTab(index + 3)">
                         <span>{{ tab.title }}</span>
@@ -32,7 +39,6 @@ const setActiveTab = (index) => {
                 </ul>
             </div>
         </div>
-
 
         <div class="tabs__main">
             <div v-if="activeTab === 0">
@@ -46,11 +52,11 @@ const setActiveTab = (index) => {
                         :key="key">
                             <p class="info-block__title">{{ property.name }}</p>
                             <p v-if="property.value" class="info-block__subtitle">{{ property.value }}</p>
-                            
                         </div>
                     </div>
                     <div class="left">
-                        <div class="info-block__character"  v-for="(property, key) in Object.values(props.tabs.attributes.properties).slice(Math.ceil(Object.keys(props.tabs.attributes.properties).length / 2))"
+                        <div class="info-block__character"  
+                        v-for="(property, key) in Object.values(props.tabs.attributes.properties).slice(Math.ceil(Object.keys(props.tabs.attributes.properties).length / 2))"
                         :key="key">
                             <p class="info-block__title">{{ property.name }}</p>
                             <p v-if="property.value" class="info-block__subtitle">{{ property.value }}</p>
@@ -58,8 +64,11 @@ const setActiveTab = (index) => {
                     </div>
                 </div>
             </div>
+            <div v-else-if="tabsArray[activeTab - 3]?.info">
+                <div v-html="tabsArray[activeTab - 3]?.info"></div>
+            </div>
             <div v-else>
-                <div v-html="props.tabs.attributes?.tabs[activeTab - 3]?.info"></div>
+                <p>Контент для этой вкладки отсутствует</p>
             </div>
         </div>
     </div>

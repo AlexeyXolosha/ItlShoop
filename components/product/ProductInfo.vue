@@ -14,7 +14,7 @@ const mainSwiper = ref(null);
 const activeIndex = ref(0); // Отслеживаем активный индекс
 
 const onSwiperInit = (swiperInstance) => {
-    console.log('Swiper initialized:', swiperInstance);
+    //console.log('Swiper initialized:', swiperInstance);
     mainSwiper.value = swiperInstance;
 
     // Отслеживаем изменение активного слайда
@@ -25,11 +25,11 @@ const onSwiperInit = (swiperInstance) => {
 
 const changeSlide = (index) => {
     if (mainSwiper.value && typeof mainSwiper.value.slideTo === 'function') {
-        console.log('Switching to slide:', index);
+     //   console.log('Switching to slide:', index);
         mainSwiper.value.slideTo(index);
         activeIndex.value = index; // Обновляем активный индекс при клике
     } else {
-        console.error('Swiper instance not found or slideTo is not a function.');
+        console.error('Функции нет');
     }
 };
 
@@ -37,7 +37,7 @@ const slidePrev = () => {
     if (mainSwiper.value && typeof mainSwiper.value.slidePrev === 'function') {
         mainSwiper.value.slidePrev();
     } else {
-        console.error('Swiper instance not found or slidePrev is not a function.');
+        console.error('Функции нет');
     }
 };
 
@@ -45,7 +45,7 @@ const slideNext = () => {
     if (mainSwiper.value && typeof mainSwiper.value.slideNext === 'function') {
         mainSwiper.value.slideNext();
     } else {
-        console.error('Swiper instance not found or slideNext is not a function.');
+        console.error('Функции нет');
     }
 };
 </script>

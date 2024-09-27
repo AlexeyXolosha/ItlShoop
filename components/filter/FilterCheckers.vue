@@ -21,10 +21,10 @@ const handleFilterClick = (filter) => {
       <div class="checkers__body">
         <div class="checkers__check" v-for="(property, index) in properties.slice(1)" :key="index">
           <div class="checkers__title">
-            <p>{{ property.name }}</p>            
-            <i class="fa-regular" :class="openFilters[property.name] ? 'fa-angle-up' : 'fa-angle-down'" @click="toggleFilter(property.name)"></i>
+            <p>{{ property?.name }}</p>            
+            <i class="fa-regular" :class="openFilters[property?.name] ? 'fa-angle-up' : 'fa-angle-down'" @click="toggleFilter(property.name)"></i>
           </div>
-          <div v-if="openFilters[property.name]" class="checkers__list">
+          <div v-if="openFilters[property?.name]" class="checkers__list">
               <UICustomChecker v-for="(value, idx) in property.values" :key="idx" v-if="Array.isArray(property.values)" :value="value" @change="handleFilterClick(value)"/>
             <div class="checkers__more">
               <span>Показать еще</span>

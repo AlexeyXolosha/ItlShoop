@@ -12,7 +12,7 @@ const { data: productExp} =  fetchProductExpandables(category.value, product.val
 <template>
      <ProductHead :props="productInfo"></ProductHead> 
      <ProductInfo :props="productInfo"></ProductInfo>
-     <ProductExpandables :exp="productExp">С этим товаром покупают</ProductExpandables>
+     <ProductExpandables v-if="productExp" :exp="productExp">С этим товаром покупают</ProductExpandables>
      <Blogs></Blogs>
      <Watchs></Watchs>
 </template>

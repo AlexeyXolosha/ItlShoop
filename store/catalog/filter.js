@@ -52,7 +52,7 @@ export const useProductFilter = defineStore('ProductFilter', () => {
       }
     });
     
-  //  console.log("Запрос к API с URL:", paramUrl);
+    console.log("Запрос к API с URL:", paramUrl);
 
     const { data } = await fetchProductCatalog(paramUrl);
    // console.log("Полученные данные:", data);
