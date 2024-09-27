@@ -1,6 +1,8 @@
 <script setup>
-
-
+const props = defineProps({
+    cart: Object
+})
+console.log(props.cart.attributes.sale)
 </script>
 
 <template>
@@ -34,7 +36,7 @@
             <div class="cart__sale">
                 <div class="cart__sale-info">
                     <span>Товар участвует в акции:</span>
-                    <p>Черная пятница в разгаре, скидки до 80%! </p>
+                    <p v-for="(item, index) in props.cart.attributes.sale" :key="index">{{ item.attributes.name }}</p>
                 </div>
                 <svg width="21" height="20" viewBox="0 0 21 20" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path

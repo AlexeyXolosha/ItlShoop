@@ -1,5 +1,5 @@
 <script setup>
-const today = new Date('September 21 2024 19:00:00')
+const today = new Date('September 28 2024 23:00:00')
 
 
 const hours = ref(0);

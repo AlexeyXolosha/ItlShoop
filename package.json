@@ -16,7 +16,8 @@
     "nuxt-swiper": "^1.2.2",
     "pinia": "^2.2.2",
     "vue": "latest",
-    "vue-router": "latest"
+    "vue-router": "latest",
+    "vue-slider-component": "^3.2.24"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.6.0",

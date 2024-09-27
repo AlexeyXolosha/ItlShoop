@@ -4,15 +4,12 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   const products = ref([]);
   const filters = ref([]);
 
-  /* Цена */
   const price = ref({ min: 0, max: 0 }); 
   const RangeValuesPrice = ref([]);
 
-  /* Фильтры */
   const selectedFilterCollections = ref([]);
   const currentCategory = ref(null);
 
-  /* range */
   const range = ref({});
 
   const fetchInfo = async () => {
@@ -52,7 +49,7 @@ export const useProductFilter = defineStore('ProductFilter', () => {
       }
     });
     
-    console.log("Запрос к API с URL:", paramUrl);
+  //  console.log("Запрос к API с URL:", paramUrl);
 
     const { data } = await fetchProductCatalog(paramUrl);
    // console.log("Полученные данные:", data);
@@ -112,7 +109,7 @@ export const useProductFilter = defineStore('ProductFilter', () => {
     fetchInfo();
   };
 
-  return {
+return {
  products,
     filters,
     fetchInfo,

@@ -9,6 +9,9 @@ import 'swiper/css/navigation';
 const link = ref(''); 
 const hitProduct = ref(null);
 
+const loading = ref(false);
+
+
 const {data: hitList} = fetchHit()
 
 const linkItem = (selectedLink) => {
@@ -25,44 +28,57 @@ const fetchProduct = async (endpoint) => {
         throw error;
     }
 }
+const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-watch(link, async (newLink, oldLink) => {
-    // console.log('Ссылка изменена с', oldLink, 'на', newLink);
-    if (newLink) {
-        try {
-            hitProduct.value = await fetchProduct(newLink);
-           console.log('Полученные данные продукта:', hitProduct.value);
-        } catch (error) {
-          //  console.error('Ошибка при получении данных продукта:', error);
-        }
+
+watch(link, async (newLink) => {
+  if (newLink) {
+    loading.value = true; // Начало загрузки
+    try {
+      const productData = await fetchProduct(newLink);
+      console.log('Полученные данные продукта:', productData);
+
+      // Искусственная задержка, например, на 2 секунды (2000 миллисекунд)
+      await delay(2000);
+
+      hitProduct.value = productData;
+    } catch (error) {
+      console.error('Ошибка при получении данных продукта:', error);
+    } finally {
+      loading.value = false; // Завершение загрузки
     }
+  }
 });
+
 </script>
 
 <template>
     <section class="section container">
-        <div class="section__body">
-            <div class="section__info">
-                <h2 class="section__title">
-                    <slot></slot>
-                </h2>
-                <UITabs :items="hitList" @get-link="linkItem"></UITabs>
-            </div>
-            <Swiper 
+      <div class="section__body">
+        <div class="section__info">
+          <h2 class="section__title">
+            <slot></slot>
+          </h2>
+              <UITabs :items="hitList" @get-link="linkItem"></UITabs>
+        </div>
+        <div v-if="loading">
+          <SkeletonList />
+        </div>
+        <div v-else>
+          <Swiper 
             navigation
             :slides-per-view="6" 
-            :space-between="24",
+            :space-between="24"
             :modules="[Navigation]"
-            >
-                <SwiperSlide v-for="hitProduct in hitProduct?.data">
-                    <UICardItem 
-                      :product="hitProduct"
-                    ></UICardItem>
-                </SwiperSlide>
-            </Swiper>
+          >
+            <SwiperSlide v-for="product in hitProduct?.data" :key="product.id">
+              <UICardItem :product="product"></UICardItem>
+            </SwiperSlide>
+          </Swiper>
         </div>
+      </div>
     </section>
-</template>
+  </template>
 
 <style lang="scss">
 .custom-button-next{

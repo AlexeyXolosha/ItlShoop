@@ -93,7 +93,7 @@ const slideNext = () => {
             <ProductTabs :tabs="props.props.data"></ProductTabs>
             <ProductTizers :tizers="props.props.data.attributes.tizers"></ProductTizers>
         </div>
-        <ProductCart></ProductCart>
+        <ProductCart :cart=props.props.data></ProductCart>
     </section>
 </template>
 

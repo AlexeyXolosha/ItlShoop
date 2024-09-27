@@ -25,8 +25,8 @@ const updateSelectedFilter = filter => {
 </script>
 
 <template>
-    <BannerTitle :properties="catalogProduct"></BannerTitle>
-  <section class="section container">
+  <BannerTitle :properties="catalogProduct"></BannerTitle>
+  <div class="section container">
     <div class="section__body">
       <div class="catalog">
         <div class="catalog__inner">
@@ -63,7 +63,7 @@ const updateSelectedFilter = filter => {
         </div>
       </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style lang="scss" scoped>
@@ -88,14 +88,10 @@ const updateSelectedFilter = filter => {
 .catalog-filter {
   width: 100%;
   max-width: 264px;
-  max-height: 1100px;
-  overflow-y: scroll;
 
   &::-webkit-scrollbar{
     display: none;
   }
-  
-
   &__body {
     display: flex;
     flex-direction: column;
