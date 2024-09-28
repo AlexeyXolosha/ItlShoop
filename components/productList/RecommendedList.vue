@@ -1,72 +1,76 @@
 <script setup>
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import {Navigation} from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
+import { ref, watch } from 'vue';
 
 import 'swiper/css';
 import 'swiper/css/navigation';
 
-const {data: recom} = RecomendadeList()
-const link = ref(''); 
+
+const { data: recom } = RecomendadeList();
+const link = ref('');
 const Recomendade = ref(null);
+const isLoading = ref(true); 
 
 const linkItem = (selectedLink) => {
-    link.value = selectedLink;
- //   console.log(link.value)
-}
+  link.value = selectedLink;
+};
 
 const fetchProduct = async (endpoint) => {
-    try {
-        const response = await $fetch(`${BASE_URL}${endpoint}`);
-        return response;
-    } catch (error) {
-        //console.error('Ошибка при получении данных продукта:', error);
-        throw error;
-    }
-}
+  try {
+    const response = await $fetch(`${BASE_URL}${endpoint}`);
+    return response;
+  } catch (error) {
+    throw error;
+  }
+};
 
 watch(link, async (newLink, oldLink) => {
-   // console.log('Ссылка изменена с', oldLink, 'на', newLink);
-    if (newLink) {
-        try {
-            Recomendade.value = await fetchProduct(newLink);
-        //    console.log('Полученные данные продукта:', Recomendade.value);
-        } catch (error) {
-         //   console.error('Ошибка при получении данных продукта:', error);
-        }
+  if (newLink) {
+    try {
+      isLoading.value = true; 
+      Recomendade.value = await fetchProduct(newLink);
+    } catch (error) {
+        console.error("Ошибка", error )
+    } finally {
+      setTimeout(() => {
+        isLoading.value = false;
+      }, 2000);
     }
+  }
 });
 </script>
 
 <template>
-    <section class="section container">
-        <div class="section__body">
-            <div class="section__info">
-                <h2 class="section__title">
-                    <slot></slot>
-                </h2>
-                <UITabs :items="recom" @get-link="linkItem"></UITabs>
-            </div>
-            <Swiper 
-            navigation
-            :slides-per-view="6" 
-            :space-between="24",
-            :modules="[Navigation]"
-            >
-                <SwiperSlide v-for="Recomendade in Recomendade?.data">
-                    <UICardItem 
-                      :product="Recomendade"
-                    ></UICardItem>
-                </SwiperSlide>
-            </Swiper>
-        </div>
-    </section>
+  <section class="section container">
+    <div class="section__body">
+      <div class="section__info">
+        <h2 class="section__title">
+          <slot></slot>
+        </h2>
+        <UITabs :items="recom" @get-link="linkItem"></UITabs>
+      </div>
+
+      <SkeletonList v-if="isLoading" />
+
+      <Swiper 
+        v-if="!isLoading"
+        navigation
+        :slides-per-view="6" 
+        :space-between="24"
+        :modules="[Navigation]"
+      >
+        <SwiperSlide v-for="Recomendade in Recomendade?.data" :key="Recomendade.id">
+          <UICardItem :product="Recomendade"></UICardItem>
+        </SwiperSlide>
+      </Swiper>
+    </div>
+  </section>
 </template>
 
 <style lang="scss">
-.custom-button-next{
-    background-color: var(--color-white);
-    color: var(--color-blue);
+.custom-button-next {
+  background-color: var(--color-white);
+  color: var(--color-blue);
 }
 </style>
-
-

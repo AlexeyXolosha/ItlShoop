@@ -11,12 +11,13 @@ const productStore = useProductFilter()
 watch(() => route.params.category, (newCategory) => {
   if (newCategory) {
     category.value = newCategory;
-    productStore.currentCategory = newCategory
-    productStore.fetchInfo(newCategory);
+    productStore.currentCategory = newCategory;
+    productStore.fetchInfo(newCategory); // Вызов fetchInfo с учетом новых фильтров
   } else {
     console.error("Категория не определена.");
   }
 }, { immediate: true });
+
 
 const updateSelectedFilter = filter => {
   console.log("Получены данные фильтра:", filter);
@@ -87,7 +88,7 @@ const updateSelectedFilter = filter => {
 
 .catalog-filter {
   width: 100%;
-  max-width: 264px;
+  max-width: 240px;
 
   &::-webkit-scrollbar{
     display: none;

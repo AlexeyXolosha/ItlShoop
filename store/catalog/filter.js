@@ -13,71 +13,74 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   const range = ref({});
 
   const fetchInfo = async () => {
+    try {
+      if (!currentCategory.value) {
+        console.error("Категория не определена.");
+        return;
+      }
 
-    if (!currentCategory) {
-      console.error("Категория не определена.");
-      return;
-    }
+      let paramUrl = `/catalog/${currentCategory.value}/?include=items,filter,reviews-statistics,sections`;
 
-    let paramUrl = `/catalog/${currentCategory.value}/?include=items,filter,reviews-statistics,sections`;
-
-    if (selectedFilterCollections.value.length > 0) {
-      const filterParams = selectedFilterCollections.value.map(filter => {
-        return `${filter.id}=${filter.value}`;
-      }).join('&');
-      
-      paramUrl += `&set_filter=Y&${filterParams}`;
-    }
-
-    const hasSetFilter = paramUrl.includes('set_filter=Y');
-
-    if (typeof RangeValuesPrice.value.min !== 'undefined' && typeof RangeValuesPrice.value.max !== 'undefined') {
-      if (!hasSetFilter) {
+      // Добавляем set_filter=Y, если есть выбранные фильтры или диапазоны
+      if (selectedFilterCollections.value.length > 0 || Object.keys(range.value).length > 0 || (RangeValuesPrice.value.min !== 0 && RangeValuesPrice.value.max !== 0)) {
         paramUrl += `&set_filter=Y`;
       }
-      paramUrl += `&arrFilter_P1_MIN=${RangeValuesPrice.value.min}&arrFilter_P1_MAX=${RangeValuesPrice.value.max}`;
-    }
 
-    Object.entries(range.value).forEach(([key, rangeObj]) => {
-      const { minId, maxId, min, max } = rangeObj;
-      
-      if (typeof min !== 'undefined' && typeof max !== 'undefined') {
-        if (!hasSetFilter) {
-          paramUrl += `&set_filter=Y`;
-        }
-        paramUrl += `&${minId}=${min}&${maxId}=${max}`;
+      // Добавляем параметры выбранных фильтров
+      if (selectedFilterCollections.value.length > 0) {
+        const filterParams = selectedFilterCollections.value.map(filter => {
+          return `${filter.id}=${filter.value}`;
+        }).join('&');
+        paramUrl += `&${filterParams}`;
       }
-    });
-    
-  //  console.log("Запрос к API с URL:", paramUrl);
 
-    const { data } = await fetchProductCatalog(paramUrl);
-   // console.log("Полученные данные:", data);
-    
-    products.value = data.value?.included?.items || [];
-    
-    const priceData = data.value?.included?.filter?.attributes.prices;
-    // console.log(priceDatas)
-    if (priceData[0] && priceData[0].values && priceData[0].values.min && priceData[0].values.max) {
-      price.value = {
-        min: priceData[0].values.min.value || 0,
-        max: priceData[0].values.max.value || 0,
-      };
-    } else {
-      console.error("Ошибка :", priceData);
+      // Добавляем диапазон цены, если он установлен
+      if (RangeValuesPrice.value.min != null && RangeValuesPrice.value.max != null) {
+        paramUrl += `&arrFilter_P1_MIN=${RangeValuesPrice.value.min}&arrFilter_P1_MAX=${RangeValuesPrice.value.max}`;
+      }
+
+      // Добавляем другие диапазоны фильтров
+      Object.entries(range.value).forEach(([key, rangeObj]) => {
+        const { minId, maxId, min, max } = rangeObj;
+        if (min != null && max != null) {
+          paramUrl += `&${minId}=${min}&${maxId}=${max}`;
+        }
+      });
+
+      // Запрос к API
+      const { data } = await fetchProductCatalog(paramUrl);
+
+      // Обработка данных
+      products.value = data.value?.included?.items || [];
+
+      const priceData = data.value?.included?.filter?.attributes.prices;
+      if (priceData[0] && priceData[0].values) {
+        price.value = {
+          min: priceData[0].values.min.value || 0,
+          max: priceData[0].values.max.value || 0,
+        };
+      } else {
+        console.error("Ошибка при получении данных о ценах:", priceData);
+      }
+
+      filters.value = data.value?.included?.filter?.attributes?.properties || [];
+
+    } catch (error) {
+      console.error("Ошибка при получении данных фильтров:", error);
     }
-    filters.value = data.value?.included?.filter?.attributes?.properties || [];
-   // console.log("Текущие продукты:", products.value);
   };
 
+  // Выбор диапазонных фильтров
   const filterRangeProp = computed(() => {
-      return filters.value.filter(property => property.type === 'N');
-  })
+    return filters.value.filter(property => property.type === 'N');
+  });
 
-   const filterCheckersProperties = computed(() => {
+  // Фильтры с типами чекбоксов и других свойств
+  const filterCheckersProperties = computed(() => {
     return filters.value.filter(property => ['S', 'L', 'E'].includes(property.type));
   });
 
+  // Обновление выбранных фильтров
   const updateFilters = (filter) => {
     const index = selectedFilterCollections.value.findIndex(f => f.id === filter.id);
     if (index !== -1) {
@@ -88,29 +91,31 @@ export const useProductFilter = defineStore('ProductFilter', () => {
     fetchInfo();
   };
 
+  // Обновление диапазона цены
   const updatePriceRange = (priceRange) => {
     if (priceRange === null) {
-      RangeValuesPrice.value = { min: 0, max: 0 }; 
+      RangeValuesPrice.value = { min: 0, max: 0 };
     } else {
       RangeValuesPrice.value = priceRange;
     }
     fetchInfo();
   };
 
+  // Обновление других диапазонов
   const updateValueRange = (valueRange) => {
     if (valueRange === null) {
       range.value = {};
     } else {
       const { minId, maxId, min, max } = valueRange;
-      if (minId && maxId && min !== undefined && max !== undefined) {
+      if (minId && maxId && min != null && max != null) {
         range.value[minId] = { minId, maxId, min, max };
       }
     }
     fetchInfo();
   };
 
-return {
- products,
+  return {
+    products,
     filters,
     fetchInfo,
     updateFilters,
@@ -121,6 +126,6 @@ return {
     price,
     range,
     updatePriceRange,
-    updateValueRange
+    updateValueRange,
   };
 });
