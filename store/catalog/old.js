@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"; 
-import { useRouter, useRoute } from 'vue-router'; // Для работы с маршрутом 
+import { useRouter, useRoute } from 'vue-router'; 
  
 export const useProductFilter = defineStore('ProductFilter', () => { 
   const products = ref([]); 
@@ -10,14 +10,13 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   const currentCategory = ref(null); 
   const range = ref({}); 
  
-  const router = useRouter(); // Для работы с URL 
-  const route = useRoute();   // Для получения текущих параметров маршрута 
+  const router = useRouter(); 
+  const route = useRoute();  
  
   // Функция для синхронизации фильтров с query-параметрами 
   const syncFiltersWithQuery = () => { 
-    const query = { ...route.query }; // Копируем текущие query параметры 
- 
-    // Обновляем фильтры и диапазоны 
+    const query = { ...route.query };
+
     query.minPrice = RangeValuesPrice.value.min; 
     query.maxPrice = RangeValuesPrice.value.max; 
  
@@ -30,11 +29,11 @@ export const useProductFilter = defineStore('ProductFilter', () => {
       query[filter.id] = filter.value; 
     }); 
  
-    // Обновляем URL без перезагрузки страницы 
+   
     router.replace({ query }); 
   }; 
  
-  // Чтение фильтров из query-параметров при загрузке страницы 
+   
   const loadFiltersFromQuery = () => { 
     const query = route.query; 
    
