@@ -8,7 +8,7 @@ const categoryTree = computed(() => {
   if (!modalCatalog?.value || error?.value) {
     return [];
   }
-  
+
   return buildCategoryTree(modalCatalog.value.data);
 });
 
@@ -16,12 +16,10 @@ const buildCategoryTree = (categories) => {
   const map = {};
   const tree = [];
 
-  // Создаем карту категорий
   categories.forEach((category) => {
     map[category.id] = { ...category, children: [] };
   });
 
-  // Строим дерево
   categories.forEach((category) => {
     if (category.attributes.parentId) {
       map[category.attributes.parentId]?.children.push(map[category.id]);
@@ -47,103 +45,86 @@ defineEmits(['closeModal']);
 
 <template>
   <div class="modal">
-    <div class="modal__container">
-      <div class="modal__wlc">
-        <h2 class="modal__title">Каталог</h2>
-        <i @click="$emit('closeModal')" class="fa-regular fa-xmark-circle"></i>
+    <div class="modal__container container" @mouseleave="resetActiveCategory">
+      <div class="modal-catalog__parent">
+        <ul v-if="categoryTree.length" class="modal-catalog__list">
+          <li v-for="category in categoryTree" :key="category.id" class="modal-catalog__item"
+            @mouseover="setActiveCategory(category)">
+            <a :href="category.links.self" class="modal-catalog__link">
+              {{ category.attributes.name }}
+            </a>
+          </li>
+        </ul>
+        <p v-else>Загрузка данных...</p>
       </div>
-      <div class="modal__body" @mouseleave="resetActiveCategory">
-        <div class="modal-catalog__parent">
-          <!-- Список родительских категорий -->
-          <ul v-if="categoryTree.length" class="modal-catalog__list">
-            <li
-              v-for="category in categoryTree"
-              :key="category.id"
-              class="modal-catalog__item"
-              @mouseover="setActiveCategory(category)"
-              >
-              <a :href="category.links.self" class="modal-catalog__link">
-                {{ category.attributes.name }}
-              </a>
-              <i v-if="category.children.length" class="fa-regular fa-angle-right"></i>
-            </li>
-          </ul>
-          <p v-else>Загрузка данных...</p>
-        </div>
-        <div class="modal-catalog__children"  v-if="activeParentCategory">
-          <h3>{{ activeParentCategory.attributes.name }} - Подкатегории</h3>
-          <ul class="modal-catalog__list">
-            <li
-              v-for="child in activeParentCategory.children"
-              :key="child.id"
-              class="modal-catalog__item"
-            >
-              <a :href="child.links.self" class="modal-catalog__link">
-                {{ child.attributes.name }}
-              </a>
-            </li>
-          </ul>
-        </div>
+      <div class="modal-catalog__children">
+        <ul class="modal-catalog__list" v-if="activeParentCategory">
+          <li v-for="child in activeParentCategory.children" :key="child.id" class="modal-catalog__item">
+            <a :href="child.links.self" class="modal-catalog__link">
+              {{ child.attributes.name }}
+            </a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
 </template>
 
-<style lang="scss">
-.modal{
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
+<style lang="scss" scoped>
+.modal {
+  position: fixed;
+  left: 0;
+  top: 155;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 99999;
+  background-color: var(--color-white);
+  border: 1px solid var(--color-blue-transparent);
+  overflow: auto;
+
+  &__container {
+    display: flex;
+    column-gap: 24px;
     height: 100vh;
-    z-index: 99998;
-    background-color: rgb(0,0,0, .3);
-    display: grid;
-    align-items: center;
-    justify-content: center;
+  }
 
-    &__container{
-        max-width: 852px;
-        background-color: var(--color-white);
-        padding: 30px 75px;
-        z-index: 1;
+  &-catalog {
+    &__list {
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      row-gap: 16px;
     }
 
-    &__body{
-        display: flex;
-        column-gap: 24px;
+    &__parent {
+      margin-right: 16px;
+      padding: 32px 0;
+      border-right: 1px solid var(--color-blue-transparent);
+      width: 280px;
+      min-width: 280px;
     }
 
-    &__wlc{
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+    &__item {
+      display: flex;
+      align-items: center;
+      column-gap: 4px;
 
-        i{
-            font-size: 18px;
-            cursor: pointer;
-        }
+   
     }
 
-    &-catalog{
-        &__list{
-          display: flex;
-          flex-direction: column;
-          align-items: start;
-          row-gap: 5px;
-        }
+    &__link {
+      text-decoration: none;
+      color: #333;
 
-        &__item{
-            display: flex;
-            align-items: center;
-            column-gap: 4px;
-        }
-
-        &__link{
-            text-decoration: none;
-            font-size: 18px;
-            color: #333;
-        }
+      &:hover {
+        color: var(--color-blue);
+      }
     }
+
+    &__children{
+      padding: 32px 0;
+    }
+  }
 }
 </style>

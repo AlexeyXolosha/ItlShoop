@@ -1,17 +1,22 @@
 import { defineStore } from "pinia";
+import { ref, computed } from "vue";
 
 export const useProductFilter = defineStore('ProductFilter', () => {
-  const products = ref([]);
-  const filters = ref([]);
+  const products = ref([]); // Все товары
+  const filters = ref([]); // Фильтры
+  const price = ref({ min: 0, max: 0 }); // Диапазон цен
+  const RangeValuesPrice = ref([]); // Диапазоны цен
+  const selectedFilterCollections = ref([]); // Выбранные фильтры
+  const currentCategory = ref(null); // Текущая категория
+  const range = ref({}); // Диапазоны других фильтров
 
-  const price = ref({ min: 0, max: 0 }); 
-  const RangeValuesPrice = ref([]);
+  // Пагинация
+  const currentPage = ref(1); // Текущая страница
+  const totalProducts = ref(0); // Общее количество товаров
+  const perPage = ref(5); // Количество товаров на странице
+  const loading = ref(false); // Индикатор загрузки
 
-  const selectedFilterCollections = ref([]);
-  const currentCategory = ref(null);
-
-  const range = ref({});
-
+  // Функция для получения данных от API
   const fetchInfo = async () => {
     try {
       if (!currentCategory.value) {
@@ -21,52 +26,84 @@ export const useProductFilter = defineStore('ProductFilter', () => {
 
       let paramUrl = `/catalog/${currentCategory.value}/?include=items,filter,reviews-statistics,sections`;
 
-      // Добавляем set_filter=Y, если есть выбранные фильтры или диапазоны
+      // Добавляем фильтры и другие параметры
       if (selectedFilterCollections.value.length > 0 || Object.keys(range.value).length > 0 || (RangeValuesPrice.value.min !== 0 && RangeValuesPrice.value.max !== 0)) {
         paramUrl += `&set_filter=Y`;
       }
 
-      // Добавляем параметры выбранных фильтров
-      if (selectedFilterCollections.value.length > 0) {
-        const filterParams = selectedFilterCollections.value.map(filter => {
-          return `${filter.id}=${filter.value}`;
-        }).join('&');
-        paramUrl += `&${filterParams}`;
-      }
-
-      // Добавляем диапазон цены, если он установлен
+      // Добавляем диапазон цены в запрос
       if (RangeValuesPrice.value.min != null && RangeValuesPrice.value.max != null) {
         paramUrl += `&arrFilter_P1_MIN=${RangeValuesPrice.value.min}&arrFilter_P1_MAX=${RangeValuesPrice.value.max}`;
+        console.log("Добавление диапазона цен в запрос:", RangeValuesPrice.value);
       }
 
-      // Добавляем другие диапазоны фильтров
-      Object.entries(range.value).forEach(([key, rangeObj]) => {
-        const { minId, maxId, min, max } = rangeObj;
-        if (min != null && max != null) {
-          paramUrl += `&${minId}=${min}&${maxId}=${max}`;
-        }
-      });
+      // Добавляем выбранные фильтры
+      if (selectedFilterCollections.value.length > 0) {
+        const filterParams = selectedFilterCollections.value
+          .map(filter => `${filter.id}=${filter.value}`)
+          .join('&');
+        paramUrl += `&${filterParams}`;
+        console.log("Добавление выбранных фильтров в запрос:", selectedFilterCollections.value);
+      }
 
-      // Запрос к API
+      console.log("URL запроса:", paramUrl);
+
+      // Выполняем запрос к API
       const { data } = await fetchProductCatalog(paramUrl);
 
-      // Обработка данных
-      products.value = data.value?.included?.items || [];
+      if (data?.value) {
+        const responseData = data.value;
 
-      const priceData = data.value?.included?.filter?.attributes.prices;
-      if (priceData[0] && priceData[0].values) {
-        price.value = {
-          min: priceData[0].values.min.value || 0,
-          max: priceData[0].values.max.value || 0,
-        };
+        // Проверяем, есть ли товары
+        if (responseData?.included?.items?.length > 0) {
+          products.value = responseData.included.items; // Сохраняем все товары
+          totalProducts.value = responseData.included.items.length; // Сохраняем общее количество товаров
+        } else {
+          console.warn("Товары не найдены в ответе API.");
+          products.value = [];
+        }
+
+        // Обработка данных о ценах
+        const priceData = responseData?.included?.filter?.attributes?.prices;
+        if (priceData && priceData[0]?.values) {
+          price.value = {
+            min: priceData[0].values.min?.value || 0,
+            max: priceData[0].values.max?.value || 0,
+          };
+        } else {
+          console.warn("Ошибка при получении данных о ценах:", priceData);
+        }
+
+        // Обновляем фильтры
+        filters.value = responseData?.included?.filter?.attributes?.properties || [];
       } else {
-        console.error("Ошибка при получении данных о ценах:", priceData);
+        console.error("Не удалось получить данные от API");
       }
-
-      filters.value = data.value?.included?.filter?.attributes?.properties || [];
-
     } catch (error) {
-      console.error("Ошибка при получении данных фильтров:", error);
+      console.error("Ошибка при получении данных от API:", error);
+      products.value = []; // Если ошибка, очищаем товары
+    } finally {
+      loading.value = false; // Отключаем индикатор загрузки
+    }
+  };
+
+  // Пагинация — возвращаем товары для текущей страницы
+  const paginatedProducts = computed(() => {
+    const start = (currentPage.value - 1) * perPage.value;
+    const end = start + perPage.value;
+    return products.value.slice(start, end); // Отображаем товары с текущей страницы
+  });
+
+  // Рассчитываем количество страниц
+  const totalPages = computed(() => {
+    return Math.ceil(products.value.length / perPage.value);
+  });
+
+  // Функция для смены страницы
+  const setPage = (page) => {
+    if (page > 0 && page <= totalPages.value) {
+      currentPage.value = page;
+      fetchInfo(); // Перезапрашиваем данные при смене страницы
     }
   };
 
@@ -84,11 +121,12 @@ export const useProductFilter = defineStore('ProductFilter', () => {
   const updateFilters = (filter) => {
     const index = selectedFilterCollections.value.findIndex(f => f.id === filter.id);
     if (index !== -1) {
-      selectedFilterCollections.value.splice(index, 1);
+      selectedFilterCollections.value.splice(index, 1); // Убираем фильтр, если он уже выбран
     } else {
-      selectedFilterCollections.value.push(filter);
+      selectedFilterCollections.value.push(filter); // Добавляем новый фильтр
     }
-    fetchInfo();
+    console.log("Обновленные фильтры:", selectedFilterCollections.value);
+    fetchInfo(); // Перезапрашиваем данные после изменения фильтров
   };
 
   // Обновление диапазона цены
@@ -98,7 +136,8 @@ export const useProductFilter = defineStore('ProductFilter', () => {
     } else {
       RangeValuesPrice.value = priceRange;
     }
-    fetchInfo();
+    console.log("Обновленные диапазоны цены:", RangeValuesPrice.value);
+    fetchInfo(); // Перезапрашиваем данные после изменения диапазона цен
   };
 
   // Обновление других диапазонов
@@ -111,9 +150,16 @@ export const useProductFilter = defineStore('ProductFilter', () => {
         range.value[minId] = { minId, maxId, min, max };
       }
     }
-    fetchInfo();
+    console.log("Обновленные диапазоны других фильтров:", range.value);
+    fetchInfo(); // Перезапрашиваем данные после изменения диапазона других фильтров
   };
 
+  const loadMore = () => {
+    perPage.value += 5; // Увеличиваем количество товаров на странице
+    console.log("Текущее значение perPage:", perPage.value);
+    fetchInfo(); // Перезапрашиваем данные
+  };
+  
   return {
     products,
     filters,
@@ -127,5 +173,13 @@ export const useProductFilter = defineStore('ProductFilter', () => {
     range,
     updatePriceRange,
     updateValueRange,
+    paginatedProducts, 
+    totalPages, 
+    setPage,
+    loadMore,
+    currentPage,
+    totalProducts,
+    perPage,
+    loading,
   };
 });

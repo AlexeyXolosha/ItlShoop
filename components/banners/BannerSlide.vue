@@ -23,7 +23,7 @@ const {data: BannerSlide} = fetchBannerSlide()
                             </div>
                             <div class="banner__bg"></div>
                             <div class="banner__content-image">
-                                <img src="../public/baner.png" alt="" class="banner__image">
+                                <img src="../../public/baner.png" alt="" class="banner__image">
                             </div>
                         </div>
                     </SwiperSlide>

@@ -12,7 +12,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <section class="section container">
+    <section class="section container" v-if="props.exp && props.exp.data && props.exp.data.length">
         <div class="section__body">
             <div class="section__info">
                 <h2 class="section__title">

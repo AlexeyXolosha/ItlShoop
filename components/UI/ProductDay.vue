@@ -1,6 +1,7 @@
 <script setup>
-const today = new Date('September 28 2024 23:00:00')
+import { ref, onMounted } from 'vue';
 
+const today = new Date('11 30 2024 23:00:00');
 
 const hours = ref(0);
 const minutes = ref(0);
@@ -8,12 +9,12 @@ const seconds = ref(0);
 
 const timeCount = () => {
   const now = new Date();
-  const leftUntil = today - now
+  const leftUntil = today - now;
 
   hours.value = Math.floor(leftUntil / 1000 / 60 / 60);
   minutes.value = Math.floor(leftUntil / 1000 / 60) % 60;
   seconds.value = Math.floor(leftUntil / 1000) % 60;
-}
+};
 
 onMounted(() => {
   timeCount();
@@ -27,15 +28,15 @@ onMounted(() => {
       <h3>Товар дня</h3>
       <div class="product-day__content">
         <div class="product-day__time-count">
-          <div class="product-day__item">{{hours}}</div>
+          <div class="product-day__item">{{ hours < 10 ? '0' + hours : hours }}</div>
         </div>
         <div class="product-day__separate">:</div>
         <div class="product-day__time-count">
-          <div class="product-day__item">{{minutes}}</div>
+          <div class="product-day__item">{{ minutes < 10 ? '0' + minutes : minutes }}</div>
         </div>
         <div class="product-day__separate">:</div>
         <div class="product-day__time-count">
-          <div class="product-day__item">{{ seconds  }}</div>
+          <div class="product-day__item">{{ seconds < 10 ? '0' + seconds : seconds }}</div>
         </div>
       </div>
     </div>

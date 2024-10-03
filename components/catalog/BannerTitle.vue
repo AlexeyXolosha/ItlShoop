@@ -17,7 +17,7 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .section{
-  padding-top: 44px;
+  padding-top: 44px !important;
 }
 
 .catalog-up{

@@ -19,7 +19,8 @@
   
   &__list{
     display: flex;
-    justify-content: space-between;
+    align-items: start;
+    overflow: hidden;
     column-gap: 24px;
   }
 }

@@ -2,7 +2,11 @@
 import { fetchMenuCategories } from '~/utils/apiRequest';
 const {data: headeSale} = fetchMenuCategories()
 
-const emit = defineEmits(["open-modal"]);
+const props = defineProps({
+    isModalOpen: Boolean
+});
+
+const emit = defineEmits(["toggle-modal"]);
 </script>
 
 
@@ -18,10 +22,10 @@ const emit = defineEmits(["open-modal"]);
                     <span>Готовый интернет-магазин</span>
                 </div>
             </a>
-
-            <UIYellowButton @click="() => emit('open-modal')">
+            <UIYellowButton @click="emit('toggle-modal')">
                     <template #icon>
-                        <i class="fa-regular fa-bars"></i>
+                        <i v-if="!isModalOpen" class="fa-regular fa-bars"></i>
+                        <i v-else class="fa-regular fa-xmark"></i>
                     </template>
                     Каталог товаров
             </UIYellowButton>
@@ -150,8 +154,9 @@ const emit = defineEmits(["open-modal"]);
         &__category-list{
             display: flex;
             justify-content: space-between;
-            column-gap: 35px;
+            column-gap: 16px;
             align-items: center;
+            overflow: hidden;
         }
 
         &__category-link{

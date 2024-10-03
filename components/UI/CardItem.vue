@@ -29,21 +29,27 @@ const stickerColors = {
                 </div>
             </div>
             <div class="card-product__name">
-                <p>{{product.attributes?.name}}</p>
+                <p v-if="product.attributes.name">{{product.attributes?.name}}</p>
             </div>
             <div class="card-product__shop-count">
                 <p><span>{{ product?.attributes?.product?.stores?.count?.title }}</span> </p>
             </div>
             <div class="card-product__shop-prevPrice">
                 <span v-if="product.attributes.product.basePrice?.valueFormatted">{{product?.attributes?.product?.basePrice?.valueFormatted}}</span>
+                <span v-if="product.attributes.product.price?.valueFormatted">{{product?.attributes?.product?.basePrice?.valueFormatted}}</span>
+                <span v-else>Нет в наличии</span>
             </div>
             <div class="card-product__shop-currentPrice">
                 <p v-if="product.attributes.product.price?.valueFormatted">{{ product?.attributes?.product?.price?.valueFormatted }}</p>
+                <span v-else>Нет в наличии</span>
             </div>
         </div>
 
         <div class="card-product__add">
-            <UIYellowButton class="yellowCard__card"><template #icon><i class="fa-regular fa-plus"></i></template>В корзину</UIYellowButton>
+            <div class="button">
+                <UIYellowButton v-if="product.attributes.product.quantity" class="yellowCard__card"><template #icon><i class="fa-regular fa-plus"></i></template>В корзину</UIYellowButton>
+                <UIYellowButton v-else class="yellowCard__card">Подробнее</UIYellowButton>
+            </div>
             <div class="card-product__item">
                 <i class="fa-regular fa-heart"></i>
                 <svg width="20" height="20" viewBox="0 0 20 21" fill="none" xmlns="http://www.w3.org/2000/svg">

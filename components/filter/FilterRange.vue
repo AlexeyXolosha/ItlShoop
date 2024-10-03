@@ -3,9 +3,9 @@ const props = defineProps({
   filter: Object
 });
 
+const minSelected = ref(props.filter.min || props.filter.values?.min.value || 0);
+const maxSelected = ref(props.filter.max || props.filter.values?.max.value || 0);
 
-const minSelected = ref(props.filter.min || props.filter.values?.min.value);
-const maxSelected = ref(props.filter.max || props.filter.values?.max.value);
 
 const emit = defineEmits(['update:priceRange', 'update:valueRange']);
 
@@ -39,10 +39,10 @@ watch(() => props.price, (newPrice) => {
 </script>
 
 <template>
-  <div class="filter-range" v-if="maxSelected !== 0">
-    <div class="filter-range__body">
+  <div class="filter-range"  v-if="maxSelected !== 0">
+    <div class="filter-range__body" v-if="props.filter && maxSelected !== 0">
       <div class="filter-range__tit">
-        <p>{{ props.filter.name }}</p>
+        <p>{{ props.filter?.name }}</p>
       </div>
       <div class="filter-range__input-block">
         <input class="filter-range__input" type="number" v-model="minSelected"

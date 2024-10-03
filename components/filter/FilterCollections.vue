@@ -12,30 +12,33 @@ const handleFilterClick = (filter) => {
 </script>
 
 <template>
-  <div class="catalog-filter__collections">
+  <div class="catalog-filter__collections" v-if="properties && properties.length > 0">
     <div class="collection">
-      <div class="collection__title">{{ properties[0].name }}</div>
+      <div class="collection__title">{{ properties[0]?.name || 'Не указано' }}</div>
       <ul class="collection__list">
-        <li class="collection__item" v-for="(value, index) in properties[0].values.slice(0, 2)" :key="index">
+        <li class="collection__item" v-for="(value, index) in properties[0]?.values?.slice(0, 2)" :key="index">
           <button 
             class="collection__button"
             @click="handleFilterClick(value)"
           >
-            <span>{{ value.name }}</span>
+            <span>{{ value?.name || 'Не указано' }}</span>
           </button>
         </li>
         <li class="collection__item">
           <button 
-            v-for="(value, index) in properties[0].values.slice(2, 4)" 
+            v-for="(value, index) in properties[0]?.values?.slice(2, 4)" 
             :key="index" 
             class="collection__button"
             @click="handleFilterClick(value)"
           >
-            <span>{{ value.name }}</span>
+            <span>{{ value?.name || 'Не указано' }}</span>
           </button>
         </li>
       </ul>
     </div>
+  </div>
+  <div v-else>
+    <p>Фильтры не загружены.</p>
   </div>
 </template>
 

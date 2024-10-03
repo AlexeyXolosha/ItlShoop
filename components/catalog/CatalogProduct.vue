@@ -3,18 +3,23 @@ import { useProductFilter } from '~/store/catalog/filter';
 
 const route = useRoute();
 const category = ref(route.params.category);
+const itemData = ref(null)
 
-const { data: catalogProduct, error } = fetchProductCatalog(category.value);
+const { data: catalogProduct, error } = await fetchProductCatalog(category.value);
 
 const productStore = useProductFilter()
 
-watch(() => route.params.category, (newCategory) => {
+watch(() => route.params.category, async (newCategory) => {
   if (newCategory) {
     category.value = newCategory;
     productStore.currentCategory = newCategory;
-    productStore.fetchInfo(newCategory); // Вызов fetchInfo с учетом новых фильтров
-  } else {
-    console.error("Категория не определена.");
+
+    // Убедитесь, что категория определена перед вызовом fetchInfo
+    if (productStore.currentCategory) {
+      await productStore.fetchInfo(); // Вызов fetchInfo с учетом новых фильтров
+    } else {
+      console.error("Категория не определена.");
+    }
   }
 }, { immediate: true });
 
@@ -26,17 +31,21 @@ const updateSelectedFilter = filter => {
 </script>
 
 <template>
-  <BannerTitle :properties="catalogProduct"></BannerTitle>
+  <CatalogBannerTitle :properties="catalogProduct" />
   <div class="section container">
     <div class="section__body">
       <div class="catalog">
         <div class="catalog__inner">
           <div class="catalog-filter">
             <div class="catalog-filter__body">
-              <FilterCollections :properties="productStore.filterCheckersProperties" @update:selectedFilter="updateSelectedFilter"></FilterCollections>
-              <FilterRange :filter="productStore.price" @update:priceRange="productStore.updatePriceRange"></FilterRange>
-              <FilterCheckers :properties="productStore.filterCheckersProperties"  @update:selectedFilter="updateSelectedFilter"></FilterCheckers>
-              <FilterRange v-for="range in productStore.filterRangeProp" :filter="range" @update:valueRange="productStore.updateValueRange"></FilterRange>
+              <FilterCollections :properties="productStore.filterCheckersProperties"
+                @update:selectedFilter="updateSelectedFilter"></FilterCollections>
+              <FilterRange :filter="productStore.price" @update:priceRange="productStore.updatePriceRange">
+              </FilterRange>
+              <FilterCheckers :properties="productStore.filterCheckersProperties"
+                @update:selectedFilter="updateSelectedFilter"></FilterCheckers>
+              <FilterRange v-for="range in productStore.filterRangeProp" :filter="range"
+                @update:valueRange="productStore.updateValueRange"></FilterRange>
             </div>
           </div>
           <div class="catalog-product">
@@ -47,14 +56,20 @@ const updateSelectedFilter = filter => {
                 </select>
               </div>
               <div class="catalog-product__list">
-                <UICardItem v-for="item in productStore.products" :key="item.id" :product="item"></UICardItem>
+                <template v-if="productStore.products.length > 0">
+                  <UICardItem v-for="item in productStore.paginatedProducts" :key="item.id" :product="item"></UICardItem>
+                </template>
+                <p v-else>Нет товаров</p>
               </div>
             </div>
             <div class="catalog-product__footer">
               <div class="catalog-product__pagination">
-                <button class="catalog-product__button">Показать еще</button>
-                <UIPagination></UIPagination>
-              </div>
+                <button class="catalog-product__button" @click="productStore.loadMore">Показать ещё</button>
+                <UIPagination 
+                :total-pages="productStore.totalPages" 
+                :current-page="productStore.currentPage" 
+                @page-changed="productStore.setPage">
+              </UIPagination>              </div>
             </div>
             <div class="catalog-product__info-block">
               <h3 class="catalog-product__name">{{ catalogProduct.data?.attributes?.name }}</h3>
@@ -68,89 +83,7 @@ const updateSelectedFilter = filter => {
 </template>
 
 <style lang="scss" scoped>
-.section{
+.section {
   padding-top: 0;
-}
-
-.catalog{
-    &__inner{
-        display: flex;
-        justify-content: space-between;
-        column-gap: 24px;
-    }
-   
-    &__select{
-      padding: 6px 20px;
-      border: 1px solid var(--color-blue-transparent);
-      border-radius: var(--border-radius-6px);
-    }
-}
-
-.catalog-filter {
-  width: 100%;
-  max-width: 240px;
-
-  &::-webkit-scrollbar{
-    display: none;
-  }
-  &__body {
-    display: flex;
-    flex-direction: column;
-    row-gap: 28px;
-  }
-}
-
-.catalog-product {
-  display: flex;
-  flex-direction: column;
-  row-gap: 48px;
-  &__head {
-    display: flex;
-    flex-direction: column;
-    row-gap: 24px;
-  }
-  &__list {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 24px;
-  }
-
-  &__footer{
-    margin-bottom: 80px;
-  }
-
-  &__pagination {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-
-  &__button {
-    cursor: pointer;
-    height: 44px;
-    text-align: center;
-    padding: 10px 70px;
-    width: 100%;
-    max-width: 552px;
-    border: 1px solid var(--color-blue-transparent);
-    background-color: var(--color-white);
-    transition: 0.2s ;
-
-    &:hover{
-      color: var(--color-white);
-      background-color: var(--color-blue);
-    }
-  }
-
-  &__info-block{
-    display: flex;
-    flex-direction: column;
-    row-gap: 36px;
-  }
-
-  &__name{
-    font-size: 24px;
-    font-weight: 400;
-  }
 }
 </style>

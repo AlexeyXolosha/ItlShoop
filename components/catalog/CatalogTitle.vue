@@ -8,7 +8,7 @@ const props = defineProps({
       <div class="catalog-title">
           <div class="catalog-title__body">
               <div class="catalog-title__up">
-                  <p class="catalog-title__page">Главная / Каталог / <span>{{ properties.data.attributes.name }}</span></p>
+                  <p class="catalog-title__page">Главная / Каталог / <span v-if="properties.data?.attributes?.name ">{{ properties.data?.attributes?.name }}</span></p>
                   <div class="catalog-title__name">{{properties.data.attributes.name }}<span> - {{properties.data.attributes.count}}</span></div>
               </div>
             <div class="catalog-title__down">

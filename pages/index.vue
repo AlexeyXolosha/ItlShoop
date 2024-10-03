@@ -1,5 +1,5 @@
 <template>
-        <BannerSlide></BannerSlide>
+        <BannersBannerSlide></BannersBannerSlide>
         <ProductListHitList>Хиты продаж</ProductListHitList>
         <CategoryList>Популярные категории</CategoryList>
         <BannersList></BannersList>
