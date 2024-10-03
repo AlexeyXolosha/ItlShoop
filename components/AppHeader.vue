@@ -71,102 +71,12 @@ const emit = defineEmits(["toggle-modal"]);
 .yellowButton{
     max-width: 181px;
     width: 100%;
+    margin-right: 24px;
+
+    @media(max-width: 1400px){
+        margin-right: 12px;
+    }
 }
 </style>
 
-<style lang="scss">
-    .header{
-        display: flex;
-        flex-direction: column;
-        row-gap: 28px;
-        max-width: 1840p;
-        margin-inline: auto;
-        padding: 32px 40px;
-
-        &__inner{
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-
-        }
-
-        &__logo{
-            display: flex;
-            align-items: center;
-            column-gap: 16px;
-            text-decoration: none;
-            color: #333;
-        }
-
-        &__logo-name{
-            display: flex;
-            flex-direction: column;
-            align-items: start;
-        }
-
-        &__logo-title{
-            font-size: 18px;
-        }
-
-        &__user-info{
-            display: flex;
-            align-items: center;
-            column-gap: 32px;
-        }
-
-        &__user-item{
-            display: flex;
-            align-items: center;
-            column-gap: 16px;
-            color: #333;
-            text-decoration: none;
-
-            svg{
-                color: #0E6CDD;
-            }
-        }
-
-        &__search{
-            width: 50%;
-        }
-
-        &__search-input{
-            width: 100%;
-            max-width: 964px;
-            height: 48px;
-            padding-inline: 20px;
-            border: 2px solid rgba(14, 108, 221, 0.3);
-            border-radius: 6px;
-
-            color: #005CCC;
-            
-            &::placeholder{
-                color: #005CCC;
-                opacity: 0.3;
-            }
-
-            &:focus{
-                border-color: #0E6CDD;
-                outline: none;
-            }
-        }
-
-        &__category-list{
-            display: flex;
-            justify-content: space-between;
-            column-gap: 16px;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        &__category-link{
-            color: #00479C;
-            text-decoration: none;
-
-            &:hover{
-                color: #0E6CDD;
-            }
-        }
-    }
-</style>
 

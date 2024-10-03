@@ -1,7 +1,9 @@
-@import "normalize", "fonts", "globals", "mixins" ,"variables", "utils";
+@import "normalize", "fonts", "globals", "mixins", "media" ,"variables", "utils";
 
 
 @import 'block/section';
+@import 'block/header';
+@import 'block/banner-slide';
 @import 'block/product';
 @import 'block/info-block';
 @import 'block/cart';

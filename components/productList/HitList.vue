@@ -80,11 +80,5 @@ watch(link, async (newLink) => {
     </section>
   </template>
 
-<style lang="scss">
-.custom-button-next{
-    background-color: var(--color-white);
-    color: var(--color-blue);
-}
-</style>
 
 

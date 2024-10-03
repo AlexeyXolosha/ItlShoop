@@ -100,7 +100,7 @@ defineEmits(['closeModal']);
     &__parent {
       margin-right: 16px;
       padding: 32px 0;
-      border-right: 1px solid var(--color-blue-transparent);
+      border-right: 1px solid var(--color-blue-transparent-card);
       width: 280px;
       min-width: 280px;
     }
@@ -109,16 +109,19 @@ defineEmits(['closeModal']);
       display: flex;
       align-items: center;
       column-gap: 4px;
-
-   
+      width: 100%;
     }
 
     &__link {
       text-decoration: none;
       color: #333;
+      padding-top: 6px;
+      padding-bottom: 6px;
 
       &:hover {
         color: var(--color-blue);
+        background-color: var(--color-blue-transparent);
+        width: 100%;
       }
     }
 

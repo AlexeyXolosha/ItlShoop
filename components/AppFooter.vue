@@ -338,6 +338,7 @@
         }
     }
 .yellowButton-height{
+    width: 150px;
     height: 52px;
 }
 </style>

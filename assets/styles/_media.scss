@@ -1,0 +1,37 @@
+$desktop-above: 1281px;
+$desktop: 1280px;
+
+$desktop-alt: 1725px;
+
+$tablet-above: 1024px;
+$tablet: 1023px;
+
+@mixin desktop-above {
+    @media (min-width: $desktop-above) {
+        @content;
+    }
+}
+
+@mixin desktop {
+    @media (max-width: $desktop) {
+        @content;
+    }
+}
+
+@mixin desktop-alt {
+    @media (max-width: $desktop-alt) {
+        @content;
+    }
+}
+
+@mixin tablet-above {
+    @media (min-width: $tablet-above) {
+        @content;
+    }
+}
+
+@mixin tablet {
+    @media (max-width: $tablet) {
+        @content;
+    }
+}
