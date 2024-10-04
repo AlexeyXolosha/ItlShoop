@@ -100,7 +100,7 @@ defineEmits(['closeModal']);
     &__parent {
       margin-right: 16px;
       padding: 32px 0;
-      border-right: 1px solid var(--color-blue-transparent-card);
+      border-right: 1px solid var(--color-blue-transparent);
       width: 280px;
       min-width: 280px;
     }
@@ -121,6 +121,7 @@ defineEmits(['closeModal']);
       &:hover {
         color: var(--color-blue);
         background-color: var(--color-blue-transparent);
+        border-radius: var(--border-radius-6px) 0 var(--border-radius-6px) 0;
         width: 100%;
       }
     }

@@ -51,6 +51,17 @@ watch(link, async (newLink, oldLink) => {
             :slides-per-view="6" 
             :space-between="24",
             :modules="[Navigation]"
+            :breakpoints="{
+              1280: {
+                slidesPerView: 4,
+              },
+              1720: {
+                slidesPerView: 5,
+              },
+              1920: {
+                slidesPerView: 6,
+              }
+            }"
             >
                 <SwiperSlide v-for="SaleProduct in SaleProduct?.data">
                     <UICardItem 

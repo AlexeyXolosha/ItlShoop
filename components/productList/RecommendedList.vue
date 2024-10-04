@@ -59,6 +59,17 @@ watch(link, async (newLink, oldLink) => {
         :slides-per-view="6" 
         :space-between="24"
         :modules="[Navigation]"
+        :breakpoints="{
+              1280: {
+                slidesPerView: 4,
+              },
+              1720: {
+                slidesPerView: 5,
+              },
+              1920: {
+                slidesPerView: 6,
+              }
+            }"
       >
         <SwiperSlide v-for="Recomendade in Recomendade?.data" :key="Recomendade.id">
           <UICardItem :product="Recomendade"></UICardItem>
