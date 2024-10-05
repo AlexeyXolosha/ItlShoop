@@ -74,10 +74,14 @@ const slideNext = () => {
                     </div>
                     <div class="info-block__swiper-main">
                         <Swiper class="swiper-main" @swiper="onSwiperInit">
-                            <SwiperSlide v-for="(image, index) in props.props.data.attributes.images.more" :key="index">
+                            <SwiperSlide v-if="props.props.data.attributes.images.more && props.props.data.attributes.images.more.length > 0" v-for="(image, index) in props.props.data.attributes.images.more" :key="index">
                                 <div class="swiper-main__slide">
-                                    <img :src="imageUpload(image)" class="slide__image" alt="">
+                                    <img v-if="image" :src="imageUpload(image)" class="slide__image" alt="">
                                 </div>
+                            </SwiperSlide>
+
+                            <SwiperSlide v-else>
+                                <img src="../../public/zaglushka.png" class="slide__image" alt="Placeholder">
                             </SwiperSlide>
                         </Swiper>
                     </div>

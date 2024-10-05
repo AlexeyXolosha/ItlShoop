@@ -55,7 +55,10 @@ const updateSelectedFilter = filter => {
                   <option value="">Сначала популярные</option>
                 </select>
               </div>
-              <div class="catalog-product__list">
+              <div v-if="productStore.loading">
+                <p>Загрузка товаров...</p>
+              </div>
+              <div v-else class="catalog-product__list">
                 <template v-if="productStore.products.length > 0">
                   <UICardItem v-for="item in productStore.paginatedProducts" :key="item.id" :product="item"></UICardItem>
                 </template>

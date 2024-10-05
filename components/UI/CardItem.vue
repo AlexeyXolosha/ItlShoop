@@ -16,11 +16,11 @@ const stickerColors = {
 </script>
 
 <template>
-    <article  class="card-product">
+    <article class="card-product">
             <div class="card-product__sticker-list">
                 <span  v-for="sticker in product.attributes.stikers" :key="sticker" :class="['card-product__sticker', stickerColors[sticker]]">{{ sticker }}</span>
             </div>
-            <a href="" class="card-product__img">
+            <a :href="product.links.self" class="card-product__img">
                 <img :src="imageUpload(product.attributes.image)" alt="" width="192" height="192" class="card-product__image">
             </a>
             <div class="card-product__info">
@@ -31,7 +31,7 @@ const stickerColors = {
                     </div>
                 </div>
                 <div class="card-product__name">
-                    <p v-if="product.attributes.name">{{product.attributes?.name}}</p>
+                    <a :href="product.links.self" v-if="product.attributes.name">{{product.attributes?.name}}</a>
                 </div>
                 <div class="card-product__shop-count">
                     <p><span>{{ product?.attributes?.product?.stores?.count?.title }}</span> </p>
@@ -116,6 +116,15 @@ const stickerColors = {
             max-width: 200px;
             margin-bottom: 6px;
             line-height: 24px;
+
+            a{
+                text-decoration: none;
+                color: var(--color-dark);
+
+                &:hover{
+                    color: var(--color-blue);
+                }
+            }
         }
 
         &__shop-count{
